@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/21 17:11:37 by vlafouas         ###   ########.fr       */
+/*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
+/*   Updated: 2023/12/21 17:12:22 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdio.h>
+#include "get_next_line.h"
 
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1u << 10
-#endif
-
-char* get_next_line(int fd)
+int main(void)
 {
-	(void)fd;
-	printf("%u\n", BUFFER_SIZE);
-	return NULL;
+	char* line = get_next_line(0);
 }

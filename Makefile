@@ -1,4 +1,4 @@
-LIB = libgnl.a
+EXEC = exec
 
 CC = cc
 
@@ -6,7 +6,7 @@ SRC_DIR = src
 BUILD_DIR = build
 INC_DIR = src
 
-C_FILES = src/get_next_line.c src/get_next_line_utils.c
+C_FILES = src/get_next_line.c src/get_next_line_utils.c src/main.c
 H_FILES = src/get_next_line.h
 OBJS := $(C_FILES:%=$(BUILD_DIR)/%.o)
 
@@ -18,24 +18,25 @@ __BUFFER_SIZE = 100
 CFLAGS += -D BUFFER_SIZE=$(__BUFFER_SIZE)
 
 .PHONY: all
-all: build
+all: run
+
+.PHONY: run
+run: $(BUILD_DIR)/$(EXEC)
+	$(BUILD_DIR)/$(EXEC)
 
 .PHONY: build
-build: $(LIB)
+build: $(BUILD_DIR)/$(EXEC)
 
 .PHONY: re
 re: fclean build
 
-$(LIB): $(OBJS) $(H_FILES)
-	ar rcs $@ $(OBJS)
+$(BUILD_DIR)/$(EXEC): $(OBJS) $(H_FILES)
+	$(CC) $(CFLAGS) $(OBJS) -o $@
 
 $(BUILD_DIR)/%.c.o: %.c $(H_FILES)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY: clean fclean
+.PHONY: clean
 clean:
 	rm -rf $(BUILD_DIR)
-
-fclean: clean
-	rm -rf $(LIB)
