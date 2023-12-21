@@ -1,6 +1,12 @@
 #ifndef GET_NEXT_LINE_H
 #define GET_NEXT_LINE_H
 
+#include <stddef.h>
+
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 1u << 10
+#endif
+
 typedef struct s_char_node {
 	char c;
 	struct s_char_node* next;
@@ -8,11 +14,12 @@ typedef struct s_char_node {
 
 typedef struct s_char_list {
 	t_char_node* head;
+	size_t len;
 } t_char_list;
 
 char* get_next_line(int fd);
 
-char* char_list_to_str(const s_char_list lst);
-void char_list_push(s_char_list* lst, char c);
+char* char_list_to_str(const t_char_list lst);
+void char_list_push(t_char_list* lst, char c);
 
 #endif

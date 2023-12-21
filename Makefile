@@ -40,3 +40,11 @@ $(BUILD_DIR)/%.c.o: %.c $(H_FILES)
 .PHONY: clean
 clean:
 	rm -rf $(BUILD_DIR)
+
+# LSP stuff, don't worry about it
+.PHONY: update
+update:
+	make clean
+	mkdir $(BUILD_DIR)
+	bear --output $(BUILD_DIR)/compile_commands.json -- make build
+

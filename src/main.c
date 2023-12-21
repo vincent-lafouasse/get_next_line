@@ -6,13 +6,15 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/21 17:12:22 by vlafouas         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:06:25 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <string.h>
 
 int main(void)
 {
-	char* line = get_next_line(0);
+	char buffer[BUFFER_SIZE];
+	bzero(buffer, BUFFER_SIZE);
 }
