@@ -15,7 +15,7 @@ CFLAGS  = -Wall -Wextra
 CFLAGS += -I$(INC_DIR)
 
 __BUFFER_SIZE = 100
-CFLAGS += -D BUFFER_SIZE=$(__BUFFER_SIZE)
+#CFLAGS += -D BUFFER_SIZE=$(__BUFFER_SIZE)
 
 .PHONY: all
 all: run
@@ -28,7 +28,7 @@ run: $(BUILD_DIR)/$(EXEC)
 build: $(BUILD_DIR)/$(EXEC)
 
 .PHONY: re
-re: fclean build
+re: clean all
 
 $(BUILD_DIR)/$(EXEC): $(OBJS) $(H_FILES)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
