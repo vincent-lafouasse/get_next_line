@@ -14,7 +14,7 @@ CFLAGS  = -Wall -Wextra
 #CFLAGS += -Werror
 CFLAGS += -I$(INC_DIR)
 
-__BUFFER_SIZE = 100
+__BUFFER_SIZE = 1024
 #CFLAGS += -D BUFFER_SIZE=$(__BUFFER_SIZE)
 
 .PHONY: all
