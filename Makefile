@@ -22,7 +22,7 @@ all: run
 
 .PHONY: run
 run: $(BUILD_DIR)/$(EXEC)
-	$(BUILD_DIR)/$(EXEC)
+	./$(BUILD_DIR)/$(EXEC)
 
 .PHONY: build
 build: $(BUILD_DIR)/$(EXEC)
