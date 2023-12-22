@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/22 14:31:00 by vlafouas         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:33:11 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
+char 	*ft_strdup(const char* s);
 char	*ft_strnchr(const char *s, char c, size_t n);
 void	flush_buffer(char *buffer, char **out, size_t buffer_size);
 
@@ -29,7 +30,7 @@ char	*gnl(int fd)
 	static char	buffer[BUFFER_SIZE];
 	char		*out;
 
-	out = malloc(1);
+	out = ft_strdup("");
 	return (out);
 }
 
@@ -95,3 +96,26 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	*out = 0;
 	return ((char *)str_begin);
 }
+
+char 	*ft_strdup(const char* s)
+{
+	char* out = malloc(1 + ft_strlen(s));
+	const char* head = out;
+
+	while (*s)
+		*out++ = *s++;
+	*out = '\0';
+	return (char*)head;
+}
+char	*ft_strnchr(const char *s, char c, size_t n)
+{
+	size_t i = 0;
+
+	while (i < n && i <= ft_strlen(s))
+	{
+		if (s[i] == c)
+			return (char*)s + i;
+	}
+	return NULL;
+}
+
