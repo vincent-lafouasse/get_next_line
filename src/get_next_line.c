@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/21 17:34:13 by vlafouas         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:23:57 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 
 char	*get_next_line(int fd)
 {
-	char			buffer[BUFFER_SIZE];
-	static size_t	head = 0;
-
 	(void)fd;
 	return (NULL);
 }
