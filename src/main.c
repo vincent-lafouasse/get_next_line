@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/22 16:46:52 by vlafouas         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:05:35 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strdup(const char *s);
 char	*ft_strnchr(const char *s, char c, size_t n);
+void* 	ft_memcpy(void* dst, const void* src, const size_t sz)
+{
+	size_t i = 0;
+	unsigned char* dst__ = dst;
+	const unsigned char* src__ = src;
+
+	while (i < sz)
+	{
+		dst__[i] = src__[i];
+	}
+	return dst;
+}
+
 void	flush_buffer(char *buffer, char **out)
 {
 	char	*tmp;
@@ -98,28 +111,20 @@ size_t	ft_strlen(const char *s)
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char		*out;
-	const char	*str_begin;
 
 	out = malloc(1 + ft_strlen(s1) + ft_strlen(s2));
-	str_begin = out;
-	while (*s1)
-		*out++ = *s1++;
-	while (*s2)
-		*out++ = *s2++;
-	*out = 0;
-	return ((char *)str_begin);
+	ft_memcpy(out, s1, ft_strlen(s1));
+	ft_memcpy(out + ft_strlen(s1), s2, 1 + ft_strlen(s2));
+	return out;
 }
 
 char	*ft_strdup(const char *s)
 {
 	char		*out;
-	const char	*head = out;
 
 	out = malloc(1 + ft_strlen(s));
-	while (*s)
-		*out++ = *s++;
-	*out = '\0';
-	return ((char *)head);
+	ft_memcpy(out, s, 1 + ft_strlen(s));
+	return out;
 }
 
 char	*ft_strnchr(const char *s, char c, size_t n)
