@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/22 16:33:11 by vlafouas         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:46:52 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,29 @@
 
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
-char 	*ft_strdup(const char* s);
+char	*ft_strdup(const char *s);
 char	*ft_strnchr(const char *s, char c, size_t n);
-void	flush_buffer(char *buffer, char **out, size_t buffer_size);
+void	flush_buffer(char *buffer, char **out)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(*out, buffer);
+	free(*out);
+	*out = tmp;
+}
 
 char	*gnl(int fd)
 {
 	static char	buffer[BUFFER_SIZE];
+	size_t		bytes_read;
 	char		*out;
 
 	out = ft_strdup("");
+	while (ft_strnchr(buffer, '\n', BUFFER_SIZE) == NULL)
+	{
+		flush_buffer(buffer, &out);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+	}
 	return (out);
 }
 
@@ -97,25 +110,27 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return ((char *)str_begin);
 }
 
-char 	*ft_strdup(const char* s)
+char	*ft_strdup(const char *s)
 {
-	char* out = malloc(1 + ft_strlen(s));
-	const char* head = out;
+	char		*out;
+	const char	*head = out;
 
+	out = malloc(1 + ft_strlen(s));
 	while (*s)
 		*out++ = *s++;
 	*out = '\0';
-	return (char*)head;
+	return ((char *)head);
 }
+
 char	*ft_strnchr(const char *s, char c, size_t n)
 {
-	size_t i = 0;
+	size_t	i;
 
+	i = 0;
 	while (i < n && i <= ft_strlen(s))
 	{
 		if (s[i] == c)
-			return (char*)s + i;
+			return ((char *)s + i);
 	}
-	return NULL;
+	return (NULL);
 }
-
