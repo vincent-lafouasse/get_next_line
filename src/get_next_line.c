@@ -14,13 +14,14 @@
 #include <stdio.h>
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1u << 10
+# define BUFFER_SIZE 1u << 10
 #endif
 
-char* get_next_line(int fd)
+char	*get_next_line(int fd)
 {
+	char			buffer[BUFFER_SIZE];
+	static size_t	head = 0;
+
 	(void)fd;
-	char buffer[BUFFER_SIZE];
-	static size_t head = 0;
-	return NULL;
+	return (NULL);
 }
