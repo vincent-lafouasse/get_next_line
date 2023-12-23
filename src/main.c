@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/23 23:04:58 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/23 23:19:28 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void rotate(char* array, size_t shift, size_t array_size)
 
 static void log_buffer(const char* buffer, size_t buffer_size)
 {
-	printf("buffer:\n\t");
+	printf("buffer:\t");
 
 	for (size_t i = 0; i < buffer_size && buffer[i]; i++)
 	{
@@ -81,13 +81,12 @@ char	*gnl(int fd)
 	printf("here\n");
 
 	char* newline_position = ft_strnchr(buffer, '\n', BUFFER_SIZE);
-	log_buffer(buffer, BUFFER_SIZE);
+
 	*newline_position = 0;
 	flush_buffer(buffer, &line);
-	log_buffer(buffer, BUFFER_SIZE);
-	bzero(buffer, (newline_position - buffer));
-	log_buffer(buffer, BUFFER_SIZE);
 	flush_buffer("\n", &line);
+
+	bzero(buffer, (newline_position - buffer));
 	rotate(buffer, 1 + (newline_position - buffer), BUFFER_SIZE);
 
 	return (line);
