@@ -6,11 +6,10 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/23 19:01:14 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/23 22:39:52 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +17,10 @@
 #include <unistd.h>
 
 #define PATH "./aux/short.txt"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4
+# endif
 
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strdup(const char *s);
@@ -44,6 +47,7 @@ char	*gnl(int fd)
 	{
 		flush_buffer(buffer, &out);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		printf("new buffer:\n\t%s\n", buffer);
 		if (bytes_read < BUFFER_SIZE)
 			break;
 	}
@@ -53,36 +57,12 @@ char	*gnl(int fd)
 int	main(void)
 {
 	int		fd;
-	char	buffer[BUFFER_SIZE];
-	size_t	i;
+	char* line;
 
 	fd = open(PATH, O_RDONLY);
-	bzero(buffer, BUFFER_SIZE);
-	i = 0;
-	while (read(fd, buffer + i, 1) > 0)
-	{
-		if (buffer[i] == '\n')
-		{
-			buffer[i] = 0;
-			break ;
-		}
-		i++;
-	}
-	printf("first line\n");
-	printf("%s\n", buffer);
-	bzero(buffer, BUFFER_SIZE);
-	i = 0;
-	while (read(fd, buffer + i, 1) > 0)
-	{
-		if (buffer[i] == '\n')
-		{
-			buffer[i] = 0;
-			break ;
-		}
-		i++;
-	}
-	printf("second line\n");
-	printf("%s\n", buffer);
+
+	line = gnl(fd);
+	printf("%s", line);
 }
 
 char	*ft_strjoin(const char *s1, const char *s2)

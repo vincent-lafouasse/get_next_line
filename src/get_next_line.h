@@ -3,10 +3,6 @@
 
 # include <stddef.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1u << 10
-# endif
-
 typedef struct s_char_node
 {
 	char				c;
