@@ -10,7 +10,7 @@ C_FILES = src/get_next_line.c src/get_next_line_utils.c src/main.c
 H_FILES = src/get_next_line.h
 OBJS := $(C_FILES:%=$(BUILD_DIR)/%.o)
 
-CFLAGS  = -Wall -Wextra
+CFLAGS  = -Wall -Wextra -g3
 #CFLAGS += -Werror
 CFLAGS += -I$(INC_DIR)
 
