@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/23 22:39:52 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/23 22:42:29 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4
 # endif
+
+static void log_buffer(const char* buffer, size_t buffer_size)
+{
+	printf("new buffer:\n\t");
+
+	for (size_t i = 0; i < buffer_size; i++)
+	{
+		if (buffer[i] == '\n')
+			printf("$");
+		else
+			printf("%c", buffer[i]);
+	}
+	printf("\n");
+}
 
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strdup(const char *s);
@@ -47,7 +61,7 @@ char	*gnl(int fd)
 	{
 		flush_buffer(buffer, &out);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		printf("new buffer:\n\t%s\n", buffer);
+		log_buffer(buffer, BUFFER_SIZE);
 		if (bytes_read < BUFFER_SIZE)
 			break;
 	}
