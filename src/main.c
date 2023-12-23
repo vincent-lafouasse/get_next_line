@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/23 22:50:49 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/23 22:55:33 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 
 static void log_buffer(const char* buffer, size_t buffer_size)
 {
-	printf("new buffer:\n\t");
+	printf("buffer:\n\t");
 
-	for (size_t i = 0; i < buffer_size; i++)
+	for (size_t i = 0; i < buffer_size && buffer[i]; i++)
 	{
 		if (buffer[i] == '\n')
 			printf("$");
@@ -65,14 +65,16 @@ char	*gnl(int fd)
 		if (bytes_read < BUFFER_SIZE)
 			break;
 	}
+	printf("here\n");
 
 	char* newline_position = ft_strnchr(buffer, '\n', BUFFER_SIZE);
-	flush_buffer(buffer, &line);
+	log_buffer(buffer, BUFFER_SIZE);
 	*newline_position = 0;
 	flush_buffer(buffer, &line);
 	log_buffer(buffer, BUFFER_SIZE);
 	bzero(buffer, (newline_position - buffer));
 	log_buffer(buffer, BUFFER_SIZE);
+	flush_buffer("\n", &line);
 
 	return (line);
 }
@@ -92,6 +94,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char		*out;
 
+	printf("joining \"%s\" and \"%s\"\n", s1, s2);
 	out = malloc(1 + strlen(s1) + strlen(s2));
 	memcpy(out, s1, strlen(s1));
 	memcpy(out + strlen(s1), s2, 1 + strlen(s2));
