@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/23 18:54:21 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/23 19:01:14 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	flush_buffer(char *buffer, char **out)
 	tmp = ft_strjoin(*out, buffer);
 	free(*out);
 	*out = tmp;
+	bzero(buffer, BUFFER_SIZE);
 }
 
 char	*gnl(int fd)
@@ -43,6 +44,8 @@ char	*gnl(int fd)
 	{
 		flush_buffer(buffer, &out);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < BUFFER_SIZE)
+			break;
 	}
 	return (out);
 }
