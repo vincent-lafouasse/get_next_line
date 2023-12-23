@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/23 22:48:16 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/23 22:50:49 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ char	*gnl(int fd)
 	}
 
 	char* newline_position = ft_strnchr(buffer, '\n', BUFFER_SIZE);
+	flush_buffer(buffer, &line);
+	*newline_position = 0;
+	flush_buffer(buffer, &line);
+	log_buffer(buffer, BUFFER_SIZE);
+	bzero(buffer, (newline_position - buffer));
+	log_buffer(buffer, BUFFER_SIZE);
 
 	return (line);
 }
