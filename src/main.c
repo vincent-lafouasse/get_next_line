@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/22 17:05:35 by vlafouas         ###   ########.fr       */
+/*   Updated: 2023/12/23 18:54:21 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,9 @@
 
 #define PATH "./aux/short.txt"
 
-size_t	ft_strlen(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strdup(const char *s);
 char	*ft_strnchr(const char *s, char c, size_t n);
-void* 	ft_memcpy(void* dst, const void* src, const size_t sz)
-{
-	size_t i = 0;
-	unsigned char* dst__ = dst;
-	const unsigned char* src__ = src;
-
-	while (i < sz)
-	{
-		dst__[i] = src__[i];
-	}
-	return dst;
-}
 
 void	flush_buffer(char *buffer, char **out)
 {
@@ -47,7 +34,7 @@ void	flush_buffer(char *buffer, char **out)
 
 char	*gnl(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
+	static char buffer[BUFFER_SIZE] = {0};
 	size_t		bytes_read;
 	char		*out;
 
@@ -95,26 +82,13 @@ int	main(void)
 	printf("%s\n", buffer);
 }
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (*s)
-	{
-		len++;
-		s++;
-	}
-	return (len);
-}
-
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char		*out;
 
-	out = malloc(1 + ft_strlen(s1) + ft_strlen(s2));
-	ft_memcpy(out, s1, ft_strlen(s1));
-	ft_memcpy(out + ft_strlen(s1), s2, 1 + ft_strlen(s2));
+	out = malloc(1 + strlen(s1) + strlen(s2));
+	memcpy(out, s1, strlen(s1));
+	memcpy(out + strlen(s1), s2, 1 + strlen(s2));
 	return out;
 }
 
@@ -122,20 +96,12 @@ char	*ft_strdup(const char *s)
 {
 	char		*out;
 
-	out = malloc(1 + ft_strlen(s));
-	ft_memcpy(out, s, 1 + ft_strlen(s));
+	out = malloc(1 + strlen(s));
+	memcpy(out, s, 1 + strlen(s));
 	return out;
 }
 
 char	*ft_strnchr(const char *s, char c, size_t n)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n && i <= ft_strlen(s))
-	{
-		if (s[i] == c)
-			return ((char *)s + i);
-	}
-	return (NULL);
+	return memchr(s, c, strnlen(s, n));
 }
