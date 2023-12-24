@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 11:31:28 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 11:32:16 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ char *move_line_from_queue(t_cqueue **q)
 		*line = cqueue_pop(q);
 		last_char = *line;
 		line++;
+		if (last_char == '\n')
+			break;
 	}
 	if (last_char != '\n')
 		*line++ = '\n';
