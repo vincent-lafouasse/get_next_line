@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 10:49:49 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 10:52:46 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,20 @@ int	main(void)
 	clist_push_back(&lst, '4');
 	clist_push_back(&lst, '2');
 	clist_push_back(&lst, '0');
+	clist_push_back(&lst, ' ');
+	clist_push_back(&lst, 'l');
+	clist_push_back(&lst, 'o');
+	clist_push_back(&lst, 'l');
 	log_clst(lst);
 }
 
 t_clist	*clist_new(char c)
 {
-	t_clist* new = malloc(sizeof(*new));
-	
+	t_clist* new;
+
+	new = malloc(sizeof(*new));
+	if (!new)
+		return NULL;
 	new->c = c;
 	new->next = NULL;
 
@@ -75,6 +82,8 @@ void	clist_push_back(t_clist **lst, char c)
 	t_clist* new = clist_new(c);
 	t_clist* current;
 
+	if (!new || !lst)
+		return ;
 	if (*lst == NULL)
 	{
 		*lst = new;
@@ -86,4 +95,9 @@ void	clist_push_back(t_clist **lst, char c)
 		current = current->next;
 	}
 	current->next = new;
+}
+
+void clst_pop_front(t_clist** lst)
+{
+
 }
