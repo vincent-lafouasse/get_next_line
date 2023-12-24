@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2023/12/24 13:16:46 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 13:59:10 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,14 @@ bool	queue_contains(const t_cqueue *q, char c)
 size_t	line_length(const t_cqueue *q)
 {
 	size_t	len;
-	char	last_char;
 
 	len = 0;
-	last_char = 0;
 	while (q)
 	{
 		len++;
-		last_char = q->c;
 		if (q->c == '\n')
 			break ;
 		q = q->next;
 	}
-	if (last_char != '\n')
-		return (len + 1);
 	return (len);
 }
