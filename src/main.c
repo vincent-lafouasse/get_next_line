@@ -6,10 +6,11 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/23 23:19:28 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 10:42:04 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,114 +19,69 @@
 
 #define PATH "./aux/short.txt"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4
-# endif
-
-void rotate(char* array, size_t shift, size_t array_size)
+void log_clst(t_clist* lst)
 {
-    size_t p = 1;
-    while (p <= shift) {
-        int last = array[0];
-        for (size_t i = 0; i < array_size - 1; i++) {
-            array[i] = array[i + 1];
-        }
-        array[array_size - 1] = last;
-        p++;
-    }
-}
-
-static void log_buffer(const char* buffer, size_t buffer_size)
-{
-	printf("buffer:\t");
-
-	for (size_t i = 0; i < buffer_size && buffer[i]; i++)
+	while (lst)
 	{
-		if (buffer[i] == '\n')
-			printf("$");
-		else
-			printf("%c", buffer[i]);
+		printf("%c", lst->c);
+		lst = lst->next;
 	}
 	printf("\n");
 }
 
-char	*ft_strjoin(const char *s1, const char *s2);
-char	*ft_strdup(const char *s);
-char	*ft_strnchr(const char *s, char c, size_t n);
-
-void	flush_buffer(char *buffer, char **out)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(*out, buffer);
-	free(*out);
-	*out = tmp;
-}
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 4
+#endif
 
 char	*gnl(int fd)
 {
-	static char buffer[BUFFER_SIZE] = {0};
-	size_t		bytes_read;
-	char		*line;
+	char	*a;
 
-	line = ft_strdup("");
-	while (ft_strnchr(buffer, '\n', BUFFER_SIZE) == NULL)
-	{
-		flush_buffer(buffer, &line);
-		bzero(buffer, BUFFER_SIZE);
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		log_buffer(buffer, BUFFER_SIZE);
-		if (bytes_read < BUFFER_SIZE)
-			break;
-	}
-	printf("here\n");
-
-	char* newline_position = ft_strnchr(buffer, '\n', BUFFER_SIZE);
-
-	*newline_position = 0;
-	flush_buffer(buffer, &line);
-	flush_buffer("\n", &line);
-
-	bzero(buffer, (newline_position - buffer));
-	rotate(buffer, 1 + (newline_position - buffer), BUFFER_SIZE);
-
-	return (line);
+	a = malloc(1 + fd);
+	return (a);
 }
 
 int	main(void)
 {
+	/*
 	int		fd;
-	char* line;
+	char	*line;
 
 	fd = open(PATH, O_RDONLY);
-
 	line = gnl(fd);
 	printf("%s", line);
 	line = gnl(fd);
 	printf("%s", line);
+	*/
+	t_clist* lst = NULL;
+	clist_push_back(&lst, '4');
+	clist_push_back(&lst, '2');
+	clist_push_back(&lst, '0');
+	log_clst(lst);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+t_clist	*clist_new(char c)
 {
-	char		*out;
+	t_clist* new = malloc(sizeof(*new));
+	
+	new->c = c;
+	new->next = NULL;
 
-	printf("joining \"%s\" and \"%s\"\n", s1, s2);
-	out = malloc(1 + strlen(s1) + strlen(s2));
-	memcpy(out, s1, strlen(s1));
-	memcpy(out + strlen(s1), s2, 1 + strlen(s2));
-	return out;
+	return new;
 }
 
-char	*ft_strdup(const char *s)
+void	clist_push_back(t_clist **lst, char c)
 {
-	char		*out;
+	t_clist* new = clist_new(c);
 
-	out = malloc(1 + strlen(s));
-	memcpy(out, s, 1 + strlen(s));
-	return out;
-}
-
-char	*ft_strnchr(const char *s, char c, size_t n)
-{
-	return memchr(s, c, strnlen(s, n));
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return;
+	}
+	while ((*lst)->next)
+	{
+		*lst = (*lst)->next;
+	}
+	(*lst)->next = new;
 }

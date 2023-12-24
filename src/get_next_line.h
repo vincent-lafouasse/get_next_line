@@ -3,21 +3,14 @@
 
 # include <stddef.h>
 
-typedef struct s_char_node
+typedef struct s_clist
 {
-	char				c;
-	struct s_char_node	*next;
-}						t_char_node;
+	char			c;
+	struct s_clist	*next;
+}					t_clist;
 
-typedef struct s_char_list
-{
-	t_char_node			*head;
-	size_t				len;
-}						t_char_list;
-
-char					*get_next_line(int fd);
-
-char					*char_list_to_str(const t_char_list lst);
-void					char_list_push(t_char_list *lst, char c);
+char				*clist_to_str(const t_clist *lst);
+void				clist_push_back(t_clist **lst, char c);
+t_clist				*clist_new(char c);
 
 #endif
