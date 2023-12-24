@@ -17,8 +17,8 @@ CFLAGS += -Iinclude
 #CFLAGS += -Werror
 CFLAGS += -I$(INC_DIR)
 
-__BUFFER_SIZE = 1024
-#CFLAGS += -D BUFFER_SIZE=$(__BUFFER_SIZE)
+__BUFFER_SIZE = 1
+CFLAGS += -D BUFFER_SIZE=$(__BUFFER_SIZE)
 
 .PHONY: all
 all: run

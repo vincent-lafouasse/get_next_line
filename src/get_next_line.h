@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2023/12/24 12:32:35 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 12:51:48 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # include <stdbool.h>
 # include <sys/types.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4
-# endif
 
 typedef struct s_cqueue
 {
