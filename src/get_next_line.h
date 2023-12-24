@@ -10,6 +10,8 @@ typedef struct s_cqueue
 	struct s_cqueue	*next;
 }					t_cqueue;
 
+char				*get_next_line(int fd);
+
 char				*cqueue_to_str(const t_cqueue *q);
 void				cqueue_push(t_cqueue **q, char c);
 t_cqueue			*cqueue_new(char c);
