@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 12:12:02 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 12:22:33 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@
 
 static void	log_cqueue(t_cqueue *q);
 static void	log_line(const char *line);
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 4
-#endif
 
 ssize_t	load_queue(t_cqueue **q, int fd, size_t buffer_size)
 {
