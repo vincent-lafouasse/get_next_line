@@ -1,7 +1,7 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stddef.h>
+# include <sys/types.h>
 
 typedef struct s_cqueue
 {
@@ -15,5 +15,6 @@ t_cqueue			*cqueue_new(char c);
 char				cqueue_pop(t_cqueue **q);
 size_t				line_length(const t_cqueue *q);
 char				*move_line_from_queue(t_cqueue **q);
+ssize_t				load_queue(t_cqueue **q, int fd, size_t buffer_size);
 
 #endif

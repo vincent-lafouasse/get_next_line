@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 12:01:56 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 12:12:02 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,6 @@ ssize_t	load_queue(t_cqueue **q, int fd, size_t buffer_size)
 		i++;
 	}
 	return (bytes_read);
-}
-
-char	*gnl(int fd)
-{
-	char	*a;
-
-	a = malloc(1 + fd);
-	return (a);
 }
 
 int	main(void)
