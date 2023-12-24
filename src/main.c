@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 11:32:16 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 11:41:33 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 #define PATH "./aux/short.txt"
 
-void	log_cqueue(t_cqueue *q)
+static void	log_cqueue(t_cqueue *q)
 {
 	while (q)
 	{
@@ -28,6 +28,19 @@ void	log_cqueue(t_cqueue *q)
 		else
 			printf("%c", q->c);
 		q = q->next;
+	}
+	printf("\n");
+}
+
+static void log_line(const char* line)
+{
+	while (*line)
+	{
+		if (*line == '\n')
+			printf("$");
+		else
+			printf("%c", *line);
+		line++;
 	}
 	printf("\n");
 }
@@ -50,7 +63,6 @@ int	main(void)
 	char		*line;
 	t_cqueue	*q;
 
-	(void)line;
 	(void)fd;
 	/*
 	fd = open(PATH, O_RDONLY);
@@ -68,9 +80,20 @@ int	main(void)
 	cqueue_push(&q, 'a');
 	cqueue_push(&q, 'h');
 	cqueue_push(&q, 'a');
-	cqueue_push(&q, '\n');
 	log_cqueue(q);
-	printf("%zu\n", line_length(q));
+	printf("line length\t%zu\n", line_length(q));
+	line = move_line_from_queue(&q);
+	printf("line contains\n");
+	log_line(line);
+	printf("queue contains\n");
+	log_cqueue(q);
+
+	printf("\nline length\t%zu\n", line_length(q));
+	line = move_line_from_queue(&q);
+	printf("line contains\n");
+	log_line(line);
+	printf("queue contains\n");
+	log_cqueue(q);
 }
 
 size_t	line_length(const t_cqueue *q)
@@ -99,7 +122,7 @@ char *move_line_from_queue(t_cqueue **q)
 	const char* line_start = line;
 	char last_char = 0;
 
-	while (q)
+	while (*q)
 	{
 		*line = cqueue_pop(q);
 		last_char = *line;
