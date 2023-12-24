@@ -4,3 +4,4 @@ build
 exec
 .cache
 misc*
+.DS_Store
