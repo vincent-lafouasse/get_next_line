@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 11:05:50 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 11:15:33 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,37 @@ int	main(void)
 	cqueue_push(&q, '4');
 	cqueue_push(&q, '2');
 	cqueue_push(&q, '0');
-	cqueue_push(&q, ' ');
-	cqueue_push(&q, 'l');
-	cqueue_push(&q, 'o');
-	cqueue_push(&q, 'l');
 	cqueue_push(&q, '\n');
 	cqueue_push(&q, 'h');
 	cqueue_push(&q, 'a');
 	cqueue_push(&q, 'h');
 	cqueue_push(&q, 'a');
+	cqueue_push(&q, '\n');
 	log_cqueue(q);
+	printf("%zu\n", line_length(q));
 }
+
+size_t	line_length(const t_cqueue *q)
+{
+	size_t	len;
+	char	last_char;
+
+	len = 0;
+	last_char = 0;
+	while (q)
+	{
+		len++;
+		last_char = q->c;
+		if (q->c == '\n')
+			break ;
+		q = q->next;
+	}
+	if (last_char != '\n')
+		return (len + 1);
+	return (len);
+}
+
+char		*move_line_from_queue(t_cqueue **q);
 
 t_cqueue	*cqueue_new(char c)
 {
