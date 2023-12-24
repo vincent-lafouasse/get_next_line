@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 11:01:37 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 11:04:11 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	main(void)
 	char		*line;
 	t_cqueue	*q;
 
+	(void)line;
+	(void)fd;
 	/*
 	fd = open(PATH, O_RDONLY);
 	line = gnl(fd);
@@ -62,6 +64,11 @@ int	main(void)
 	cqueue_push(&q, 'l');
 	cqueue_push(&q, 'o');
 	cqueue_push(&q, 'l');
+	log_cqueue(q);
+	cqueue_pop(&q);
+	cqueue_pop(&q);
+	cqueue_pop(&q);
+	cqueue_pop(&q);
 	log_cqueue(q);
 }
 
@@ -105,4 +112,6 @@ void	cqueue_pop(t_cqueue **q)
 	if (!q || !*q)
 		return ;
 	temp = (*q)->next;
+	free(*q);
+	*q = temp;
 }
