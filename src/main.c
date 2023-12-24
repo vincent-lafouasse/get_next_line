@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 11:04:11 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 11:05:50 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	log_cqueue(t_cqueue *q)
 {
 	while (q)
 	{
-		printf("%c", q->c);
+		if (q->c == '\n')
+			printf("$");
+		else
+			printf("%c", q->c);
 		q = q->next;
 	}
 	printf("\n");
@@ -64,11 +67,11 @@ int	main(void)
 	cqueue_push(&q, 'l');
 	cqueue_push(&q, 'o');
 	cqueue_push(&q, 'l');
-	log_cqueue(q);
-	cqueue_pop(&q);
-	cqueue_pop(&q);
-	cqueue_pop(&q);
-	cqueue_pop(&q);
+	cqueue_push(&q, '\n');
+	cqueue_push(&q, 'h');
+	cqueue_push(&q, 'a');
+	cqueue_push(&q, 'h');
+	cqueue_push(&q, 'a');
 	log_cqueue(q);
 }
 
