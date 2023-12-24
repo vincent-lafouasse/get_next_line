@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2023/12/24 12:31:13 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 13:16:46 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,32 +89,4 @@ size_t	line_length(const t_cqueue *q)
 	if (last_char != '\n')
 		return (len + 1);
 	return (len);
-}
-
-#include <stdio.h>
-
-void	log_cqueue(t_cqueue *q)
-{
-	while (q)
-	{
-		if (q->c == '\n')
-			printf("$");
-		else
-			printf("%c", q->c);
-		q = q->next;
-	}
-	printf("\n");
-}
-
-void	log_line(const char *line)
-{
-	while (*line)
-	{
-		if (*line == '\n')
-			printf("$");
-		else
-			printf("%c", *line);
-		line++;
-	}
-	printf("\n");
 }

@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2023/12/24 13:09:45 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 13:16:39 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,5 @@ size_t				line_length(const t_cqueue *q);
 char				*move_line_from_queue(t_cqueue **q);
 ssize_t				load_queue(t_cqueue **q, int fd, size_t buffer_size);
 bool				queue_contains(const t_cqueue *q, char c);
-
-void				log_cqueue(t_cqueue *q);
-void				log_line(const char *line);
 
 #endif
