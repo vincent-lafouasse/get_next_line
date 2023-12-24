@@ -11,7 +11,7 @@ H_FILES = src/get_next_line.h
 OBJS := $(C_FILES:%=$(BUILD_DIR)/%.o)
 
 CFLAGS  = -Wall -Wextra -g3
-CFLAGS += -pedantic
+CFLAGS += -std=c89 -pedantic -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition
 #CFLAGS += -Werror
 CFLAGS += -I$(INC_DIR)
 
