@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 12:50:41 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 13:04:54 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-#define PATH "./aux/one_line_no_nl.txt"
+#define PATH "./aux/41_no_nl"
 
 int	main(void)
 {

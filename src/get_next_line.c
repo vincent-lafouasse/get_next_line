@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 12:52:02 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 13:09:43 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE (1u << 5)
-# endif
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 512
+#endif
 
 char	*get_next_line(int fd)
 {
-	static t_cqueue	*queue = NULL;
+	static t_cqueue	*queue;
 	ssize_t			bytes_read;
 
 	if (queue_contains(queue, '\n'))
