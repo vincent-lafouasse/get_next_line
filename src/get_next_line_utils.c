@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2023/12/24 12:14:22 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 12:15:51 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,24 @@ bool	queue_contains(const t_cqueue *q, char c)
 		q = q->next;
 	}
 	return (false);
+}
+
+size_t	line_length(const t_cqueue *q)
+{
+	size_t	len;
+	char	last_char;
+
+	len = 0;
+	last_char = 0;
+	while (q)
+	{
+		len++;
+		last_char = q->c;
+		if (q->c == '\n')
+			break ;
+		q = q->next;
+	}
+	if (last_char != '\n')
+		return (len + 1);
+	return (len);
 }
