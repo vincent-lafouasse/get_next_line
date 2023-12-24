@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 10:52:46 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 11:01:37 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 #define PATH "./aux/short.txt"
 
-void log_clst(t_clist* lst)
+void	log_cqueue(t_cqueue *q)
 {
-	while (lst)
+	while (q)
 	{
-		printf("%c", lst->c);
-		lst = lst->next;
+		printf("%c", q->c);
+		q = q->next;
 	}
 	printf("\n");
 }
@@ -43,53 +43,54 @@ char	*gnl(int fd)
 
 int	main(void)
 {
-	/*
-	int		fd;
-	char	*line;
+	int			fd;
+	char		*line;
+	t_cqueue	*q;
 
+	/*
 	fd = open(PATH, O_RDONLY);
 	line = gnl(fd);
 	printf("%s", line);
 	line = gnl(fd);
 	printf("%s", line);
 	*/
-	t_clist* lst = NULL;
-	clist_push_back(&lst, '4');
-	clist_push_back(&lst, '2');
-	clist_push_back(&lst, '0');
-	clist_push_back(&lst, ' ');
-	clist_push_back(&lst, 'l');
-	clist_push_back(&lst, 'o');
-	clist_push_back(&lst, 'l');
-	log_clst(lst);
+	q = NULL;
+	cqueue_push(&q, '4');
+	cqueue_push(&q, '2');
+	cqueue_push(&q, '0');
+	cqueue_push(&q, ' ');
+	cqueue_push(&q, 'l');
+	cqueue_push(&q, 'o');
+	cqueue_push(&q, 'l');
+	log_cqueue(q);
 }
 
-t_clist	*clist_new(char c)
+t_cqueue	*cqueue_new(char c)
 {
-	t_clist* new;
+	t_cqueue	*new;
 
 	new = malloc(sizeof(*new));
 	if (!new)
-		return NULL;
+		return (NULL);
 	new->c = c;
 	new->next = NULL;
-
-	return new;
+	return (new);
 }
 
-void	clist_push_back(t_clist **lst, char c)
+void	cqueue_push(t_cqueue **q, char c)
 {
-	t_clist* new = clist_new(c);
-	t_clist* current;
+	t_cqueue	*new;
+	t_cqueue	*current;
 
-	if (!new || !lst)
+	new = cqueue_new(c);
+	if (!new || !q)
 		return ;
-	if (*lst == NULL)
+	if (*q == NULL)
 	{
-		*lst = new;
-		return;
+		*q = new;
+		return ;
 	}
-	current = *lst;
+	current = *q;
 	while (current->next)
 	{
 		current = current->next;
@@ -97,7 +98,11 @@ void	clist_push_back(t_clist **lst, char c)
 	current->next = new;
 }
 
-void clst_pop_front(t_clist** lst)
+void	cqueue_pop(t_cqueue **q)
 {
+	t_cqueue	*temp;
 
+	if (!q || !*q)
+		return ;
+	temp = (*q)->next;
 }

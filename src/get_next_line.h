@@ -3,14 +3,15 @@
 
 # include <stddef.h>
 
-typedef struct s_clist
+typedef struct s_cqueue
 {
 	char			c;
-	struct s_clist	*next;
-}					t_clist;
+	struct s_cqueue	*next;
+}					t_cqueue;
 
-char				*clist_to_str(const t_clist *lst);
-void				clist_push_back(t_clist **lst, char c);
-t_clist				*clist_new(char c);
+char				*cqueue_to_str(const t_cqueue *q);
+void				cqueue_push(t_cqueue **q, char c);
+t_cqueue			*cqueue_new(char c);
+void				cqueue_pop(t_cqueue **q);
 
 #endif
