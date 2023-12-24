@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2023/12/24 12:01:10 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 12:14:22 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,15 @@ char	cqueue_pop(t_cqueue **q)
 	free(*q);
 	*q = temp;
 	return (out);
+}
+
+bool	queue_contains(const t_cqueue *q, char c)
+{
+	while (q)
+	{
+		if (q->c == c)
+			return (true);
+		q = q->next;
+	}
+	return (false);
 }
