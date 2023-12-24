@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 10:42:04 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 10:49:49 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,17 @@ t_clist	*clist_new(char c)
 void	clist_push_back(t_clist **lst, char c)
 {
 	t_clist* new = clist_new(c);
+	t_clist* current;
 
 	if (*lst == NULL)
 	{
 		*lst = new;
 		return;
 	}
-	while ((*lst)->next)
+	current = *lst;
+	while (current->next)
 	{
-		*lst = (*lst)->next;
+		current = current->next;
 	}
-	(*lst)->next = new;
+	current->next = new;
 }
