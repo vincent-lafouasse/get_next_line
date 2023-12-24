@@ -7,11 +7,12 @@ BUILD_DIR = build
 INC_DIR = src
 
 C_FILES = src/get_next_line.c src/get_next_line_utils.c src/main.c
-H_FILES = src/get_next_line.h
+H_FILES = include/get_next_line.h
 OBJS := $(C_FILES:%=$(BUILD_DIR)/%.o)
 
 CFLAGS  = -Wall -Wextra -g3
 CFLAGS += -std=c99 -pedantic -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition
+CFLAGS += -Iinclude
 #CFLAGS += -Werror
 CFLAGS += -I$(INC_DIR)
 
