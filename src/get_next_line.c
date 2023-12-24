@@ -6,12 +6,13 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 12:25:50 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 12:30:00 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 char	*get_next_line(int fd)
 {
@@ -50,4 +51,24 @@ char	*move_line_from_queue(t_cqueue **q)
 		*line++ = '\n';
 	*line = '\0';
 	return ((char *)line_start);
+}
+
+ssize_t	load_queue(t_cqueue **q, int fd, size_t buffer_size)
+{
+	char	buffer[BUFFER_SIZE];
+	ssize_t	bytes_read;
+	ssize_t	i;
+
+	bytes_read = read(fd, buffer, buffer_size);
+	i = 0;
+	if (bytes_read <= 0)
+	{
+		return (0);
+	}
+	while (i < bytes_read)
+	{
+		cqueue_push(q, buffer[i]);
+		i++;
+	}
+	return (bytes_read);
 }

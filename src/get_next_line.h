@@ -25,4 +25,7 @@ char				*move_line_from_queue(t_cqueue **q);
 ssize_t				load_queue(t_cqueue **q, int fd, size_t buffer_size);
 bool				queue_contains(const t_cqueue *q, char c);
 
+void				log_cqueue(t_cqueue *q);
+void				log_line(const char *line);
+
 #endif
