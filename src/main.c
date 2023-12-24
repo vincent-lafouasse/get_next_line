@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 11:15:33 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/24 11:31:28 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,23 @@ size_t	line_length(const t_cqueue *q)
 	return (len);
 }
 
-char		*move_line_from_queue(t_cqueue **q);
+char *move_line_from_queue(t_cqueue **q)
+{
+	char* line = malloc(1 + line_length(*q));
+	const char* line_start = line;
+	char last_char = 0;
+
+	while (q)
+	{
+		*line = cqueue_pop(q);
+		last_char = *line;
+		line++;
+	}
+	if (last_char != '\n')
+		*line++ = '\n';
+	*line = '\0';
+	return (char*)line_start;
+}
 
 t_cqueue	*cqueue_new(char c)
 {
@@ -128,13 +144,16 @@ void	cqueue_push(t_cqueue **q, char c)
 	current->next = new;
 }
 
-void	cqueue_pop(t_cqueue **q)
+char	cqueue_pop(t_cqueue **q)
 {
 	t_cqueue	*temp;
+	char out;
 
 	if (!q || !*q)
-		return ;
+		return -1;
+	out = (*q)->c;
 	temp = (*q)->next;
 	free(*q);
 	*q = temp;
+	return out;
 }
