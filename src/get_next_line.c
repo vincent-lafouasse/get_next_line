@@ -16,9 +16,10 @@
 
 char	*get_next_line(int fd)
 {
-	static t_cqueue	*queue = NULL;
+	static t_cqueue	*queue;
 	ssize_t			bytes_read;
 
+	queue = NULL;
 	if (queue_contains(queue, '\n'))
 		return (move_line_from_queue(&queue));
 	bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
