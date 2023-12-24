@@ -22,7 +22,8 @@ all: run
 
 .PHONY: run
 run: $(BUILD_DIR)/$(EXEC)
-	./$(BUILD_DIR)/$(EXEC)
+	@echo running binary
+	@./$(BUILD_DIR)/$(EXEC)
 
 .PHONY: build
 build: $(BUILD_DIR)/$(EXEC)
@@ -31,20 +32,27 @@ build: $(BUILD_DIR)/$(EXEC)
 re: clean all
 
 $(BUILD_DIR)/$(EXEC): $(OBJS) $(H_FILES)
-	$(CC) $(CFLAGS) $(OBJS) -o $@
+	@echo linking binary
+	@$(CC) $(CFLAGS) $(OBJS) -o $@
+	@printf "$(GREEN)===============BUILD COMPLETED===============$(NC)\n"
 
 $(BUILD_DIR)/%.c.o: %.c $(H_FILES)
-	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@echo compile $(basename $<)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean
 clean:
-	rm -rf $(BUILD_DIR)
+	@echo cleanup
+	@rm -rf $(BUILD_DIR)
 
 # LSP stuff, don't worry about it
 .PHONY: update
 update:
-	make clean
-	mkdir "$(BUILD_DIR)"
+	@make clean
+	@mkdir "$(BUILD_DIR)"
 	bear --output "$(BUILD_DIR)/compile_commands.json" -- make build
+
+GREEN = \033[0;32m
+NC = \033[0m
 
