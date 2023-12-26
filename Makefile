@@ -26,7 +26,7 @@ all: run
 .PHONY: run
 run: $(BUILD_DIR)/$(EXEC)
 	@echo running binary
-	@./$(BUILD_DIR)/$(EXEC)
+	@./$(BUILD_DIR)/$(EXEC) input/all_star.txt
 
 .PHONY: build
 build: $(BUILD_DIR)/$(EXEC)
