@@ -49,7 +49,7 @@ void	char_queue_push(t_char_queue **q, char c)
 char	char_queue_pop(t_char_queue **q)
 {
 	t_char_queue	*temp;
-	char		out;
+	char			out;
 
 	if (!q || !*q)
 		return (-1);

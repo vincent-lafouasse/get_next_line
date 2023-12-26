@@ -18,19 +18,20 @@
 
 typedef struct s_char_queue
 {
-	char			c;
+	char				c;
 	struct s_char_queue	*next;
-}					t_char_queue;
+}						t_char_queue;
 
-char				*get_next_line(int fd);
+char					*get_next_line(int fd);
 
-void				char_queue_push(t_char_queue **q, char c);
+void					char_queue_push(t_char_queue **q, char c);
 t_char_queue			*char_queue_new(char c);
-char				char_queue_pop(t_char_queue **q);
-size_t				line_length(const t_char_queue *q);
+char					char_queue_pop(t_char_queue **q);
+size_t					line_length(const t_char_queue *q);
 
-char				*move_line_from_queue(t_char_queue **q);
-ssize_t				load_queue(t_char_queue **q, int fd, size_t buffer_size);
-bool				queue_contains(const t_char_queue *q, char c);
+char					*move_line_from_queue(t_char_queue **q);
+ssize_t					load_queue(t_char_queue **q, int fd,
+							size_t buffer_size);
+bool					queue_contains(const t_char_queue *q, char c);
 
 #endif

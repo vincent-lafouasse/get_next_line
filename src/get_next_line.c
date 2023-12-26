@@ -21,7 +21,7 @@
 char	*get_next_line(int fd)
 {
 	static t_char_queue	*queue;
-	ssize_t			bytes_read;
+	ssize_t				bytes_read;
 
 	if (queue_contains(queue, '\n'))
 		return (move_line_from_queue(&queue));
