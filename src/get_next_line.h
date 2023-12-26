@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2023/12/24 13:16:39 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/26 15:27:30 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 # include <stdbool.h>
 # include <sys/types.h>
 
-typedef struct s_cqueue
+typedef struct s_char_queue
 {
 	char			c;
-	struct s_cqueue	*next;
-}					t_cqueue;
+	struct s_char_queue	*next;
+}					t_char_queue;
 
 char				*get_next_line(int fd);
 
-void				cqueue_push(t_cqueue **q, char c);
-t_cqueue			*cqueue_new(char c);
-char				cqueue_pop(t_cqueue **q);
-size_t				line_length(const t_cqueue *q);
+void				char_queue_push(t_char_queue **q, char c);
+t_char_queue			*char_queue_new(char c);
+char				char_queue_pop(t_char_queue **q);
+size_t				line_length(const t_char_queue *q);
 
-char				*move_line_from_queue(t_cqueue **q);
-ssize_t				load_queue(t_cqueue **q, int fd, size_t buffer_size);
-bool				queue_contains(const t_cqueue *q, char c);
+char				*move_line_from_queue(t_char_queue **q);
+ssize_t				load_queue(t_char_queue **q, int fd, size_t buffer_size);
+bool				queue_contains(const t_char_queue *q, char c);
 
 #endif

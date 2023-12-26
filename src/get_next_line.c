@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 14:00:35 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/26 15:27:20 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 char	*get_next_line(int fd)
 {
-	static t_cqueue	*queue;
+	static t_char_queue	*queue;
 	ssize_t			bytes_read;
 
 	if (queue_contains(queue, '\n'))
@@ -33,7 +33,7 @@ char	*get_next_line(int fd)
 	return (move_line_from_queue(&queue));
 }
 
-char	*move_line_from_queue(t_cqueue **q)
+char	*move_line_from_queue(t_char_queue **q)
 {
 	char		*line;
 	const char	*line_start;
@@ -42,7 +42,7 @@ char	*move_line_from_queue(t_cqueue **q)
 	line_start = line;
 	while (*q)
 	{
-		*line = cqueue_pop(q);
+		*line = char_queue_pop(q);
 		line++;
 		if (*(line - 1) == '\n')
 			break ;
@@ -51,7 +51,7 @@ char	*move_line_from_queue(t_cqueue **q)
 	return ((char *)line_start);
 }
 
-ssize_t	load_queue(t_cqueue **q, int fd, size_t buffer_size)
+ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 {
 	char	buffer[BUFFER_SIZE];
 	ssize_t	bytes_read;
@@ -65,7 +65,7 @@ ssize_t	load_queue(t_cqueue **q, int fd, size_t buffer_size)
 	}
 	while (i < bytes_read)
 	{
-		cqueue_push(q, buffer[i]);
+		char_queue_push(q, buffer[i]);
 		i++;
 	}
 	return (bytes_read);

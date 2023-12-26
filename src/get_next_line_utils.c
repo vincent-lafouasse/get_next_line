@@ -6,16 +6,16 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2023/12/24 13:59:10 by poss             ###   ########.fr       */
+/*   Updated: 2023/12/26 15:27:26 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdlib.h>
 
-t_cqueue	*cqueue_new(char c)
+t_char_queue	*char_queue_new(char c)
 {
-	t_cqueue	*new;
+	t_char_queue	*new;
 
 	new = malloc(sizeof(*new));
 	if (!new)
@@ -25,12 +25,12 @@ t_cqueue	*cqueue_new(char c)
 	return (new);
 }
 
-void	cqueue_push(t_cqueue **q, char c)
+void	char_queue_push(t_char_queue **q, char c)
 {
-	t_cqueue	*new;
-	t_cqueue	*current;
+	t_char_queue	*new;
+	t_char_queue	*current;
 
-	new = cqueue_new(c);
+	new = char_queue_new(c);
 	if (!new || !q)
 		return ;
 	if (*q == NULL)
@@ -46,9 +46,9 @@ void	cqueue_push(t_cqueue **q, char c)
 	current->next = new;
 }
 
-char	cqueue_pop(t_cqueue **q)
+char	char_queue_pop(t_char_queue **q)
 {
-	t_cqueue	*temp;
+	t_char_queue	*temp;
 	char		out;
 
 	if (!q || !*q)
@@ -60,7 +60,7 @@ char	cqueue_pop(t_cqueue **q)
 	return (out);
 }
 
-bool	queue_contains(const t_cqueue *q, char c)
+bool	queue_contains(const t_char_queue *q, char c)
 {
 	while (q)
 	{
@@ -71,7 +71,7 @@ bool	queue_contains(const t_cqueue *q, char c)
 	return (false);
 }
 
-size_t	line_length(const t_cqueue *q)
+size_t	line_length(const t_char_queue *q)
 {
 	size_t	len;
 
