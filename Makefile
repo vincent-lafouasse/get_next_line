@@ -14,7 +14,7 @@ OBJS := $(C_FILES:%=$(BUILD_DIR)/%.o)
 CFLAGS  = -Wall -Wextra -g3
 CFLAGS += -std=c99 -pedantic -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition
 CFLAGS += -Iinclude
-#CFLAGS += -Werror
+CFLAGS += -Werror
 CFLAGS += -I$(INC_DIR)
 
 __BUFFER_SIZE = 1
