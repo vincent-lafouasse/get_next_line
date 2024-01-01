@@ -6,13 +6,13 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/01 16:28:50 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 18:28:50 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdlib.h>
-#include <sys/syslimits.h>
+#include <stdio.h>
 #include <unistd.h>
 
 #ifndef BUFFER_SIZE
@@ -21,10 +21,10 @@
 
 char	*get_next_line(int fd)
 {
-	static t_char_queue	*queue[OPEN_MAX];
+	static t_char_queue	*queue[FOPEN_MAX];
 	ssize_t				bytes_read;
 
-	if (fd < 0 || fd >= OPEN_MAX)
+	if (fd < 0 || fd >= FOPEN_MAX)
 		return (NULL);
 	if (char_queue_contains(queue[fd], '\n'))
 		return (move_line_from_queue(&queue[fd]));
