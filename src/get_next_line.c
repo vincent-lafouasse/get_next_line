@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/01 15:45:02 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 15:47:44 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ char	*move_line_from_queue(t_char_queue **q)
 	char		*line;
 	const char	*line_start;
 
-	if (!q)
-		return (NULL);
 	line = malloc(1 + line_length(*q));
-	if (!line)
-		return (NULL);
+	if (!line || !q)
+		return (free(line), NULL);
 	line_start = line;
 	while (*q)
 	{
@@ -66,11 +64,6 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 		return (-1);
 	bytes_read = read(fd, buffer, buffer_size);
 	i = 0;
-	if (bytes_read <= 0)
-	{
-		free(buffer);
-		return (0);
-	}
 	while (i < bytes_read)
 	{
 		char_queue_push_back(q, buffer[i]);
