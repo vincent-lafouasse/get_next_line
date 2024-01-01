@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/01 13:46:39 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 14:08:38 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,18 @@ char	*move_line_from_queue(t_char_queue **q)
 
 ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 {
-	char	buffer[BUFFER_SIZE];
+	char	*buffer;
 	ssize_t	bytes_read;
 	ssize_t	i;
 
+	buffer = malloc(buffer_size);
+	if (!buffer)
+		return (-1);
 	bytes_read = read(fd, buffer, buffer_size);
 	i = 0;
 	if (bytes_read <= 0)
 	{
+		free(buffer);
 		return (0);
 	}
 	while (i < bytes_read)
@@ -68,5 +72,6 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 		char_queue_push_back(q, buffer[i]);
 		i++;
 	}
+	free(buffer);
 	return (bytes_read);
 }
