@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 13:57:08 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:59:47 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char					*get_next_line(int fd);
 /** @struct t_char_queue
  *  @brief A Simple Queue of characters
  *
- * it provides the following functions with the usual semantics:
+ * It provides the following functions with the usual semantics:
  * `Self new()`
  * `void push_back(char)`
  * `char pop_front()`
@@ -47,7 +47,7 @@ bool					char_queue_contains(const t_char_queue *q, char c);
  *  @brief Move the next line from the queue to a heap-allocated string
  *
  *  The line is ended either by a newline or by the end of the queue. The
- *  newline is included in the count
+ *  newline is included
  */
 char					*move_line_from_queue(t_char_queue **q);
 
@@ -55,7 +55,9 @@ char					*move_line_from_queue(t_char_queue **q);
  *  @brief Compute the length of the line in the queue/buffer
  */
 size_t					line_length(const t_char_queue *q);
+
 /** @fn ssize_t load_queue(t_char_queue **q, int fd, size_t buffer_size)
+ *  @brief Loads the next line into the queue
  */
 ssize_t					load_queue(t_char_queue **q, int fd,
 							size_t buffer_size);
