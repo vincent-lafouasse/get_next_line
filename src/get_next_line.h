@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 13:59:47 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 14:18:15 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,17 @@ char					*move_line_from_queue(t_char_queue **q);
 
 /** @fn size_t line_length(const t_char_queue* pop)
  *  @brief Compute the length of the line in the queue/buffer
+ *
+ *  For the definition of what a line is:
+ *  @see char *move_line_from_queue(t_char_queue **q)
  */
 size_t					line_length(const t_char_queue *q);
 
 /** @fn ssize_t load_queue(t_char_queue **q, int fd, size_t buffer_size)
  *  @brief Loads the next line into the queue
+ *
+ *  For the definition of what a line is:
+ *  @see char *move_line_from_queue(t_char_queue **q)
  */
 ssize_t					load_queue(t_char_queue **q, int fd,
 							size_t buffer_size);
