@@ -10,12 +10,14 @@ C_FILES  = src/get_next_line.c src/get_next_line_utils.c
 C_FILES += example/main.c
 H_FILES  = src/get_next_line.h
 OBJS := $(C_FILES:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
 
 CFLAGS  = -Wall -Wextra -g3
 CFLAGS += -std=c99 -pedantic -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition
 CFLAGS += -Iinclude
 CFLAGS += -Werror
 CFLAGS += -I$(INC_DIR)
+CFLAGS += -MMD -MP
 
 __BUFFER_SIZE = 1
 CFLAGS += -D BUFFER_SIZE=$(__BUFFER_SIZE)
@@ -59,3 +61,4 @@ update:
 GREEN = \033[0;32m
 NC = \033[0m
 
+-include $(DEPS)
