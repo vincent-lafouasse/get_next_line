@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/01 14:08:38 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 14:13:49 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ char	*move_line_from_queue(t_char_queue **q)
 	char		*line;
 	const char	*line_start;
 
+	if (!q)
+		return (NULL);
 	line = malloc(1 + line_length(*q));
+	if (!line)
+		return (NULL);
 	line_start = line;
 	while (*q)
 	{

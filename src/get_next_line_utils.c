@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 13:24:26 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 14:14:03 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	char_queue_push_back(t_char_queue **q, char c)
 	t_char_queue	*new;
 	t_char_queue	*current;
 
+	if (!q)
+		return ;
 	new = char_queue_new(c);
-	if (!new || !q)
+	if (!new)
 		return ;
 	if (*q == NULL)
 	{
