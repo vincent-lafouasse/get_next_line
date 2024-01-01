@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2023/12/26 15:27:26 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:24:26 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_char_queue	*char_queue_new(char c)
 	return (new);
 }
 
-void	char_queue_push(t_char_queue **q, char c)
+void	char_queue_push_back(t_char_queue **q, char c)
 {
 	t_char_queue	*new;
 	t_char_queue	*current;
@@ -46,7 +46,7 @@ void	char_queue_push(t_char_queue **q, char c)
 	current->next = new;
 }
 
-char	char_queue_pop(t_char_queue **q)
+char	char_queue_pop_front(t_char_queue **q)
 {
 	t_char_queue	*temp;
 	char			out;
@@ -60,7 +60,7 @@ char	char_queue_pop(t_char_queue **q)
 	return (out);
 }
 
-bool	queue_contains(const t_char_queue *q, char c)
+bool	char_queue_contains(const t_char_queue *q, char c)
 {
 	while (q)
 	{
