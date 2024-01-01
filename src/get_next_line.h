@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 14:28:29 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 17:00:45 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <sys/types.h>
 
 /** @fn char *get_next_line(int fd)
- *  @brief Read and return a line from a fd.
+ *  @brief Read and return the next line from a fd.
  *  @param fd The file descriptor to read from, the caller has ownership of it
  *  @return a heap-allocated string containing the line read from the file, or
  * 		`NULL` if there is nothing else to read or an error occurred
