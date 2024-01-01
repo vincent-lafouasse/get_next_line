@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/01 16:14:53 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 16:22:40 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@
 # define BUFFER_SIZE 512
 #endif
 
-
 char	*get_next_line(int fd)
 {
 	static t_char_queue	*queue[1024];
 	ssize_t				bytes_read;
 
 	if (fd < 0)
-		return NULL;
+		return (NULL);
 	if (char_queue_contains(queue[fd], '\n'))
 		return (move_line_from_queue(&queue[fd]));
 	bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
