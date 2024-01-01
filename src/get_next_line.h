@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 14:21:48 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 14:28:29 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ bool					char_queue_contains(const t_char_queue *q, char c);
  *  The line is ended either by a newline or by the end of the queue. The
  *  newline is included
  */
-char					*move_line_from_queue(t_char_queue **q);
 
 /** @fn size_t line_length(const t_char_queue* pop)
  *  @brief Compute the length of the line in the queue/buffer
@@ -57,7 +56,6 @@ char					*move_line_from_queue(t_char_queue **q);
  *  For the definition of what a line is:
  *  @see char *move_line_from_queue(t_char_queue **q)
  */
-size_t					line_length(const t_char_queue *q);
 
 /** @fn ssize_t load_queue(t_char_queue **q, int fd, size_t buffer_size)
  *  @brief Loads a buffer into the queue
@@ -65,6 +63,8 @@ size_t					line_length(const t_char_queue *q);
  *  A wrapper for `read` that loads the bytes into a queue rather than an array
  *  @return the return value of `read`
  */
+char					*move_line_from_queue(t_char_queue **q);
+size_t					line_length(const t_char_queue *q);
 ssize_t					load_queue(t_char_queue **q, int fd,
 							size_t buffer_size);
 
