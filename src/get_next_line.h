@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 13:45:34 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:57:08 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char					*get_next_line(int fd);
  * `char pop_front()`
  * `bool contains(char)`
  */
-struct s_char_queue;
 typedef struct s_char_queue
 {
 	char				c;
@@ -44,14 +43,20 @@ void					char_queue_push_back(t_char_queue **q, char c);
 char					char_queue_pop_front(t_char_queue **q);
 bool					char_queue_contains(const t_char_queue *q, char c);
 
-/** @fn size_t line_length(const t_char_queue* pop)
- *  @brief Compute the length of the line in the queue/buffer
+/** @fn char *move_line_from_queue(t_char_queue **q)
+ *  @brief Move the next line from the queue to a heap-allocated string
  *
  *  The line is ended either by a newline or by the end of the queue. The
  *  newline is included in the count
  */
-size_t					line_length(const t_char_queue *q);
 char					*move_line_from_queue(t_char_queue **q);
+
+/** @fn size_t line_length(const t_char_queue* pop)
+ *  @brief Compute the length of the line in the queue/buffer
+ */
+size_t					line_length(const t_char_queue *q);
+/** @fn ssize_t load_queue(t_char_queue **q, int fd, size_t buffer_size)
+ */
 ssize_t					load_queue(t_char_queue **q, int fd,
 							size_t buffer_size);
 
