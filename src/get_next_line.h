@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 13:24:20 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:26:25 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 char					*get_next_line(int fd);
 
 /** \struct t_char_queue
- *   \brief A Simple Queue of characters
+ *  \brief A Simple Queue of characters
  *
- *   it must provide the following functions with the usual semantics:
- * push_back()
- * pop_front()
+ * it provides the following functions with the usual semantics:
+ * Self new()
+ * void push_back(char)
+ * char pop_front()
+ * bool contains(char)
  */
 struct s_char_queue;
 typedef struct s_char_queue
