@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/02 18:22:17 by vlafouas         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:33:09 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@
 # define BUFFER_SIZE 512
 #endif
 
+/* using the output of `ulimit -aH`, I do not like this,
+	this is probably not portable*/
+#define FD_HARD_LIMIT 1048576
+
 char	*get_next_line(int fd)
 {
-	static t_char_queue	*queue[FOPEN_MAX] = {0};
+	static t_char_queue	*queue[FD_HARD_LIMIT] = {0};
 	ssize_t				bytes_read;
 
-	if (fd < 0 || fd >= FOPEN_MAX)
+	if (fd < 0 || fd >= FD_HARD_LIMIT)
 		return (NULL);
 	if (char_queue_contains(queue[fd], '\n'))
 		return (move_line_from_queue(queue + fd));
