@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/01 18:28:50 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/02 18:22:17 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,21 @@
 
 char	*get_next_line(int fd)
 {
-	static t_char_queue	*queue[FOPEN_MAX];
+	static t_char_queue	*queue[FOPEN_MAX] = {0};
 	ssize_t				bytes_read;
 
 	if (fd < 0 || fd >= FOPEN_MAX)
 		return (NULL);
 	if (char_queue_contains(queue[fd], '\n'))
-		return (move_line_from_queue(&queue[fd]));
-	bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
+		return (move_line_from_queue(queue + fd));
+	bytes_read = load_queue(queue + fd, fd, BUFFER_SIZE);
 	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue[fd], '\n'))
-		bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
-	if (bytes_read <= 0 && !queue[fd])
+		bytes_read = load_queue(queue + fd, fd, BUFFER_SIZE);
+	if (bytes_read < 0)
+		return (char_queue_clear(queue + fd), NULL);
+	if (bytes_read == 0 && !queue[fd])
 		return (NULL);
-	return (move_line_from_queue(&queue[fd]));
+	return (move_line_from_queue(queue + fd));
 }
 
 char	*move_line_from_queue(t_char_queue **q)
@@ -69,11 +71,6 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 		return (-1);
 	bytes_read = read(fd, buffer, buffer_size);
 	i = 0;
-	if (bytes_read <= 0)
-	{
-		free(buffer);
-		return (0);
-	}
 	while (i < bytes_read)
 	{
 		char_queue_push_back(q, buffer[i]);
@@ -81,4 +78,12 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 	}
 	free(buffer);
 	return (bytes_read);
+}
+
+void	char_queue_clear(t_char_queue **q)
+{
+	if (!q)
+		return ;
+	while (*q)
+		char_queue_pop_front(q);
 }

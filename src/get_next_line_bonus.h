@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 17:01:02 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/02 18:05:38 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char					*get_next_line(int fd);
  * `void push_back(char)`
  * `char pop_front()`
  * `bool contains(char)`
+ * `void clear()`
  */
 typedef struct s_char_queue
 {
@@ -42,6 +43,7 @@ t_char_queue			*char_queue_new(char c);
 void					char_queue_push_back(t_char_queue **q, char c);
 char					char_queue_pop_front(t_char_queue **q);
 bool					char_queue_contains(const t_char_queue *q, char c);
+void					char_queue_clear(t_char_queue **q);
 
 /** @fn char *move_line_from_queue(t_char_queue **q)
  *  @brief Move the next line from the queue to a heap-allocated string
