@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/01 15:47:44 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/02 18:02:07 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ char	*get_next_line(int fd)
 	if (char_queue_contains(queue, '\n'))
 		return (move_line_from_queue(&queue));
 	bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
-	if (bytes_read <= 0 && !queue)
+	if (bytes_read < 0)
+		return (char_queue_clear(&queue), NULL);
+	if (bytes_read == 0 && !queue)
 		return (NULL);
 	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue, '\n'))
 		bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
@@ -71,4 +73,12 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 	}
 	free(buffer);
 	return (bytes_read);
+}
+
+void	char_queue_clear(t_char_queue **q)
+{
+	if (!q)
+		return ;
+	while (*q)
+		char_queue_pop_front(q);
 }
