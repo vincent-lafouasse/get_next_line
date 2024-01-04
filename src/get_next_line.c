@@ -60,7 +60,7 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 	char	*buffer;
 	ssize_t	bytes_read;
 	ssize_t	i;
-	bool push_status;
+	bool	push_status;
 
 	buffer = malloc(buffer_size);
 	if (!buffer)
@@ -73,7 +73,7 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 		if (!push_status)
 		{
 			bytes_read = -1;
-			break;
+			break ;
 		}
 		i++;
 	}

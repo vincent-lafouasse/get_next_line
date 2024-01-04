@@ -31,14 +31,14 @@ bool	char_queue_push_back(t_char_queue **q, char c)
 	t_char_queue	*current;
 
 	if (!q)
-		return false;
+		return (false);
 	new = char_queue_new(c);
 	if (!new)
-		return false;
+		return (false);
 	if (*q == NULL)
 	{
 		*q = new;
-		return true;
+		return (true);
 	}
 	current = *q;
 	while (current->next)
@@ -46,7 +46,7 @@ bool	char_queue_push_back(t_char_queue **q, char c)
 		current = current->next;
 	}
 	current->next = new;
-	return true;
+	return (true);
 }
 
 char	char_queue_pop_front(t_char_queue **q)
