@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2024/01/01 16:16:00 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/04 18:13:57 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ t_char_queue	*char_queue_new(char c)
 	return (new);
 }
 
-void	char_queue_push_back(t_char_queue **q, char c)
+bool	char_queue_push_back(t_char_queue **q, char c)
 {
 	t_char_queue	*new;
 	t_char_queue	*current;
 
 	if (!q)
-		return ;
+		return (false);
 	new = char_queue_new(c);
 	if (!new)
-		return ;
+		return (false);
 	if (*q == NULL)
 	{
 		*q = new;
-		return ;
+		return (true);
 	}
 	current = *q;
 	while (current->next)
@@ -46,6 +46,7 @@ void	char_queue_push_back(t_char_queue **q, char c)
 		current = current->next;
 	}
 	current->next = new;
+	return (true);
 }
 
 char	char_queue_pop_front(t_char_queue **q)

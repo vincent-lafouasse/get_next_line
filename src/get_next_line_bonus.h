@@ -6,12 +6,12 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/02 18:05:38 by vlafouas         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:05:33 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <stdbool.h>
 # include <sys/types.h>
@@ -29,10 +29,12 @@ char					*get_next_line(int fd);
  *
  * It provides the following functions with the usual semantics:
  * `Self new()`
- * `void push_back(char)`
+ * `bool push_back(char)`
  * `char pop_front()`
  * `bool contains(char)`
  * `void clear()`
+ *
+ * except that `push_back` returns a boolean flag
  */
 typedef struct s_char_queue
 {
@@ -40,7 +42,7 @@ typedef struct s_char_queue
 	struct s_char_queue	*next;
 }						t_char_queue;
 t_char_queue			*char_queue_new(char c);
-void					char_queue_push_back(t_char_queue **q, char c);
+bool					char_queue_push_back(t_char_queue **q, char c);
 char					char_queue_pop_front(t_char_queue **q);
 bool					char_queue_contains(const t_char_queue *q, char c);
 void					char_queue_clear(t_char_queue **q);

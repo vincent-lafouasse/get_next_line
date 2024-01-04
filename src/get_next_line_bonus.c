@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/02 18:33:09 by vlafouas         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:14:29 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 	char	*buffer;
 	ssize_t	bytes_read;
 	ssize_t	i;
+	bool	push_status;
 
 	buffer = malloc(buffer_size);
 	if (!buffer)
@@ -77,7 +78,12 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 	i = 0;
 	while (i < bytes_read)
 	{
-		char_queue_push_back(q, buffer[i]);
+		push_status = char_queue_push_back(q, buffer[i]);
+		if (!push_status)
+		{
+			bytes_read = -1;
+			break ;
+		}
 		i++;
 	}
 	free(buffer);
