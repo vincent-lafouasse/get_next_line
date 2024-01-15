@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 00:12:19 by poss              #+#    #+#             */
-/*   Updated: 2024/01/16 00:21:01 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/16 00:24:15 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_next_line(int fd)
 	static t_char_queue	*queue[MAX_FD];
 	ssize_t				bytes_read;
 
-	if (fd < 0 || fd >= FD_HARD_LIMIT)
+	if (fd < 0 || fd >= MAX_FD)
 		return (NULL);
 	if (char_queue_contains(queue[fd], '\n'))
 		return (move_line_from_queue(&queue[fd]));
