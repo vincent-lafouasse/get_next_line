@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/04 18:14:29 by vlafouas         ###   ########.fr       */
+/*   Created: 2024/01/16 00:12:19 by poss              #+#    #+#             */
+/*   Updated: 2024/01/16 00:21:01 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -23,39 +22,43 @@
 	this is probably not portable*/
 #define FD_HARD_LIMIT 1048576
 
+#ifndef MAX_FD
+# define MAX_FD FD_HARD_LIMIT
+#endif
+
 char	*get_next_line(int fd)
 {
-	static t_char_queue	*queue[FD_HARD_LIMIT] = {0};
+	static t_char_queue	*queue[MAX_FD];
 	ssize_t				bytes_read;
 
 	if (fd < 0 || fd >= FD_HARD_LIMIT)
 		return (NULL);
 	if (char_queue_contains(queue[fd], '\n'))
-		return (move_line_from_queue(queue + fd));
-	bytes_read = load_queue(queue + fd, fd, BUFFER_SIZE);
-	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue[fd], '\n'))
-		bytes_read = load_queue(queue + fd, fd, BUFFER_SIZE);
+		return (move_line_from_queue(&queue[fd]));
+	bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
 	if (bytes_read < 0)
-		return (char_queue_clear(queue + fd), NULL);
+		return (char_queue_clear(&queue[fd]), NULL);
 	if (bytes_read == 0 && !queue[fd])
 		return (NULL);
-	return (move_line_from_queue(queue + fd));
+	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue[fd], '\n'))
+		bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
+	if (bytes_read < 0)
+		return (char_queue_clear(&queue[fd]), NULL);
+	return (move_line_from_queue(&queue[fd]));
 }
 
-char	*move_line_from_queue(t_char_queue **q)
+char	*move_line_from_queue(t_char_queue **q_ptr)
 {
 	char		*line;
 	const char	*line_start;
 
-	if (!q)
-		return (NULL);
-	line = malloc(1 + line_length(*q));
-	if (!line)
-		return (NULL);
+	line = malloc(1 + line_length(*q_ptr));
+	if (!line || !q_ptr)
+		return (free(line), char_queue_clear(q_ptr), NULL);
 	line_start = line;
-	while (*q)
+	while (*q_ptr)
 	{
-		*line = char_queue_pop_front(q);
+		*line = char_queue_pop_front(q_ptr);
 		line++;
 		if (*(line - 1) == '\n')
 			break ;
@@ -64,7 +67,7 @@ char	*move_line_from_queue(t_char_queue **q)
 	return ((char *)line_start);
 }
 
-ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
+ssize_t	load_queue(t_char_queue **q_ptr, int fd, size_t buffer_size)
 {
 	char	*buffer;
 	ssize_t	bytes_read;
@@ -78,7 +81,7 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 	i = 0;
 	while (i < bytes_read)
 	{
-		push_status = char_queue_push_back(q, buffer[i]);
+		push_status = char_queue_push_back(q_ptr, buffer[i]);
 		if (!push_status)
 		{
 			bytes_read = -1;
@@ -90,10 +93,10 @@ ssize_t	load_queue(t_char_queue **q, int fd, size_t buffer_size)
 	return (bytes_read);
 }
 
-void	char_queue_clear(t_char_queue **q)
+void	char_queue_clear(t_char_queue **q_ptr)
 {
-	if (!q)
+	if (!q_ptr)
 		return ;
-	while (*q)
-		char_queue_pop_front(q);
+	while (*q_ptr)
+		char_queue_pop_front(q_ptr);
 }

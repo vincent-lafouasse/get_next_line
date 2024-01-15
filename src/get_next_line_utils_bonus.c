@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2024/01/04 18:13:57 by vlafouas         ###   ########.fr       */
+/*   Created: 2024/01/16 00:12:52 by poss              #+#    #+#             */
+/*   Updated: 2024/01/16 00:21:24 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdlib.h>
 
 t_char_queue	*char_queue_new(char c)
@@ -25,22 +25,22 @@ t_char_queue	*char_queue_new(char c)
 	return (new);
 }
 
-bool	char_queue_push_back(t_char_queue **q, char c)
+bool	char_queue_push_back(t_char_queue **q_ptr, char c)
 {
 	t_char_queue	*new;
 	t_char_queue	*current;
 
-	if (!q)
+	if (!q_ptr)
 		return (false);
 	new = char_queue_new(c);
 	if (!new)
 		return (false);
-	if (*q == NULL)
+	if (*q_ptr == NULL)
 	{
-		*q = new;
+		*q_ptr = new;
 		return (true);
 	}
-	current = *q;
+	current = *q_ptr;
 	while (current->next)
 	{
 		current = current->next;
@@ -49,17 +49,17 @@ bool	char_queue_push_back(t_char_queue **q, char c)
 	return (true);
 }
 
-char	char_queue_pop_front(t_char_queue **q)
+char	char_queue_pop_front(t_char_queue **q_ptr)
 {
 	t_char_queue	*temp;
 	char			out;
 
-	if (!q || !*q)
+	if (!q_ptr || !*q_ptr)
 		return (-1);
-	out = (*q)->c;
-	temp = (*q)->next;
-	free(*q);
-	*q = temp;
+	out = (*q_ptr)->c;
+	temp = (*q_ptr)->next;
+	free(*q_ptr);
+	*q_ptr = temp;
 	return (out);
 }
 
