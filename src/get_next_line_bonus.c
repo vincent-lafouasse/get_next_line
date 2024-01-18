@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 00:12:19 by poss              #+#    #+#             */
-/*   Updated: 2024/01/18 01:59:11 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/18 02:11:05 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,19 @@ char	*get_next_line(int fd)
 		return (move_line_from_queue(&queue[fd]));
 	bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
 	if (bytes_read < 0)
-		return (char_queue_clear(&queue[fd]), NULL);
+	{
+		char_queue_clear(&queue[fd]);
+		return (NULL);
+	}
 	if (bytes_read == 0 && !queue[fd])
 		return (NULL);
 	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue[fd], '\n'))
 		bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
 	if (bytes_read < 0)
-		return (char_queue_clear(&queue[fd]), NULL);
+	{
+		char_queue_clear(&queue[fd]);
+		return (NULL);
+	}
 	return (move_line_from_queue(&queue[fd]));
 }
 
@@ -54,7 +60,11 @@ char	*move_line_from_queue(t_char_queue **q_ptr)
 
 	line = malloc(1 + line_length(*q_ptr));
 	if (!line || !q_ptr)
-		return (free(line), char_queue_clear(q_ptr), NULL);
+	{
+		free(line);
+		char_queue_clear(q_ptr);
+		return (NULL);
+	}
 	line_start = line;
 	while (*q_ptr)
 	{

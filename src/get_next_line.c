@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/18 01:57:38 by poss             ###   ########.fr       */
+/*   Updated: 2024/01/18 02:10:26 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,19 @@ char	*get_next_line(int fd)
 		return (move_line_from_queue(&queue));
 	bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
 	if (bytes_read < 0)
-		return (char_queue_clear(&queue), NULL);
+	{
+		char_queue_clear(&queue);
+		return (NULL);
+	}
 	if (bytes_read == 0 && !queue)
 		return (NULL);
 	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue, '\n'))
 		bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
 	if (bytes_read < 0)
-		return (char_queue_clear(&queue), NULL);
+	{
+		char_queue_clear(&queue);
+		return (NULL);
+	}
 	return (move_line_from_queue(&queue));
 }
 
@@ -44,7 +50,11 @@ char	*move_line_from_queue(t_char_queue **q_ptr)
 
 	line = malloc(1 + line_length(*q_ptr));
 	if (!line || !q_ptr)
-		return (free(line), char_queue_clear(q_ptr), NULL);
+	{
+		free(line);
+		char_queue_clear(q_ptr);
+		return (NULL);
+	}
 	line_start = line;
 	while (*q_ptr)
 	{
