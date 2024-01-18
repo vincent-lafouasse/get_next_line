@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/15 19:31:30 by vlafouas         ###   ########.fr       */
+/*   Updated: 2024/01/18 01:57:38 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,17 @@ ssize_t	load_queue(t_char_queue **q_ptr, int fd, size_t buffer_size)
 	return (bytes_read);
 }
 
-void	char_queue_clear(t_char_queue **q_ptr)
+size_t	line_length(const t_char_queue *q)
 {
-	if (!q_ptr)
-		return ;
-	while (*q_ptr)
-		char_queue_pop_front(q_ptr);
+	size_t	len;
+
+	len = 0;
+	while (q)
+	{
+		len++;
+		if (q->c == '\n')
+			break ;
+		q = q->next;
+	}
+	return (len);
 }
