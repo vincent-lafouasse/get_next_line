@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:32:34 by poss              #+#    #+#             */
-/*   Updated: 2024/01/15 17:44:44 by poss             ###   ########.fr       */
+/*   Updated: 2024/03/25 12:18:10 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void					char_queue_clear(t_char_queue **q);
  */
 char					*move_line_from_queue(t_char_queue **q_ptr);
 size_t					line_length(const t_char_queue *q);
-ssize_t					load_queue(t_char_queue **q_ptr, int fd,
-							size_t buffer_size);
+ssize_t					load_queue(t_char_queue **q_ptr, int fd);
 
 #endif

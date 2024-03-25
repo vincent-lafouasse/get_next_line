@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/03/25 12:09:43 by vlafouas         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:22:22 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_next_line(int fd)
 		return NULL;
 	if (char_queue_contains(queue, '\n'))
 		return (move_line_from_queue(&queue));
-	bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
+	bytes_read = load_queue(&queue, fd);
 	if (bytes_read < 0)
 	{
 		char_queue_clear(&queue);
@@ -36,7 +36,7 @@ char	*get_next_line(int fd)
 	if (bytes_read == 0 && !queue)
 		return (NULL);
 	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue, '\n'))
-		bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
+		bytes_read = load_queue(&queue, fd);
 	if (bytes_read < 0)
 	{
 		char_queue_clear(&queue);
@@ -69,17 +69,17 @@ char	*move_line_from_queue(t_char_queue **q_ptr)
 	return ((char *)line_start);
 }
 
-ssize_t	load_queue(t_char_queue **q_ptr, int fd, size_t buffer_size)
+ssize_t	load_queue(t_char_queue **q_ptr, int fd)
 {
 	char	*buffer;
 	ssize_t	bytes_read;
 	ssize_t	i;
 	bool	push_status;
 
-	buffer = malloc(buffer_size);
+	buffer = malloc(BUFFER_SIZE);
 	if (!buffer)
 		return (-1);
-	bytes_read = read(fd, buffer, buffer_size);
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	i = 0;
 	while (i < bytes_read)
 	{
