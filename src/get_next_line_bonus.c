@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 00:12:19 by poss              #+#    #+#             */
-/*   Updated: 2024/03/25 12:10:31 by vlafouas         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:25:59 by vlafouas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (char_queue_contains(queue[fd], '\n'))
 		return (move_line_from_queue(&queue[fd]));
-	bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
+	bytes_read = load_queue(&queue[fd], fd);
 	if (bytes_read < 0)
 	{
 		char_queue_clear(&queue[fd]);
@@ -44,7 +44,7 @@ char	*get_next_line(int fd)
 	if (bytes_read == 0 && !queue[fd])
 		return (NULL);
 	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue[fd], '\n'))
-		bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
+		bytes_read = load_queue(&queue[fd], fd);
 	if (bytes_read < 0)
 	{
 		char_queue_clear(&queue[fd]);
@@ -77,17 +77,17 @@ char	*move_line_from_queue(t_char_queue **q_ptr)
 	return ((char *)line_start);
 }
 
-ssize_t	load_queue(t_char_queue **q_ptr, int fd, size_t buffer_size)
+ssize_t	load_queue(t_char_queue **q_ptr, int fd)
 {
 	char	*buffer;
 	ssize_t	bytes_read;
 	ssize_t	i;
 	bool	push_status;
 
-	buffer = malloc(buffer_size);
+	buffer = malloc(BUFFER_SIZE);
 	if (!buffer)
 		return (-1);
-	bytes_read = read(fd, buffer, buffer_size);
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	i = 0;
 	while (i < bytes_read)
 	{
