@@ -24,7 +24,7 @@ char	*get_next_line(int fd)
 	ssize_t				bytes_read;
 
 	if (BUFFER_SIZE <= 0)
-		return NULL;
+		return (NULL);
 	if (char_queue_contains(queue, '\n'))
 		return (move_line_from_queue(&queue));
 	bytes_read = load_queue(&queue, fd);
