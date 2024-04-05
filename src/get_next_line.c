@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/01/18 02:10:26 by poss             ###   ########.fr       */
+/*   Created: 2024/01/16 00:12:19 by poss              #+#    #+#             */
+/*   Updated: 2024/01/18 02:11:05 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -18,29 +18,39 @@
 # define BUFFER_SIZE 512
 #endif
 
+/* using the output of `ulimit -aH`, I do not like this,
+	this is probably not portable*/
+#define FD_HARD_LIMIT 1048576
+
+#ifndef MAX_FD
+# define MAX_FD FD_HARD_LIMIT
+#endif
+
 char	*get_next_line(int fd)
 {
-	static t_char_queue	*queue;
+	static t_char_queue	*queue[MAX_FD];
 	ssize_t				bytes_read;
 
-	if (char_queue_contains(queue, '\n'))
-		return (move_line_from_queue(&queue));
-	bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
+	if (fd < 0 || fd >= MAX_FD)
+		return (NULL);
+	if (char_queue_contains(queue[fd], '\n'))
+		return (move_line_from_queue(&queue[fd]));
+	bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
 	if (bytes_read < 0)
 	{
-		char_queue_clear(&queue);
+		char_queue_clear(&queue[fd]);
 		return (NULL);
 	}
-	if (bytes_read == 0 && !queue)
+	if (bytes_read == 0 && !queue[fd])
 		return (NULL);
-	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue, '\n'))
-		bytes_read = load_queue(&queue, fd, BUFFER_SIZE);
+	while (bytes_read == BUFFER_SIZE && !char_queue_contains(queue[fd], '\n'))
+		bytes_read = load_queue(&queue[fd], fd, BUFFER_SIZE);
 	if (bytes_read < 0)
 	{
-		char_queue_clear(&queue);
+		char_queue_clear(&queue[fd]);
 		return (NULL);
 	}
-	return (move_line_from_queue(&queue));
+	return (move_line_from_queue(&queue[fd]));
 }
 
 char	*move_line_from_queue(t_char_queue **q_ptr)
