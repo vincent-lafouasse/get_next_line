@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 17:51:59 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 18:09:59 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@
 # define MAX_FD FD_HARD_LIMIT
 #endif
 
+/*
 char	*get_next_line(int fd)
 {
 	static t_char_queue	*queue[MAX_FD];
 	ssize_t				bytes_read;
+	char* line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= MAX_FD)
 		return (NULL);
@@ -52,68 +54,27 @@ char	*get_next_line(int fd)
 	}
 	return (move_line_from_queue(&queue[fd]));
 }
+*/
 
-char	*move_line_from_queue(t_char_queue **q_ptr)
+typedef struct
 {
-	char		*line;
-	const char	*line_start;
+	char* self;
 
-	line = malloc(1 + line_length(*q_ptr));
-	if (!line || !q_ptr)
-	{
-		free(line);
-		char_queue_clear(q_ptr);
-		return (NULL);
-	}
-	line_start = line;
-	while (*q_ptr)
-	{
-		*line = char_queue_pop_front(q_ptr);
-		line++;
-		if (*(line - 1) == '\n')
-			break ;
-	}
-	*line = '\0';
-	return ((char *)line_start);
-}
+}	t_dynamic_string;
 
-ssize_t	load_queue(t_char_queue **q_ptr, int fd)
+ssize_t append_until_newline(char* line, char* remaining);
+ssize_t load_buffer(char* line, char* remaining, int fd);
+
+char	*get_next_line(int fd)
 {
-	char	*buffer;
-	ssize_t	bytes_read;
-	ssize_t	i;
-	bool	push_status;
+	char* line;
+	static char* remaining;
 
-	buffer = malloc(BUFFER_SIZE);
-	if (!buffer)
-		return (-1);
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	i = 0;
-	while (i < bytes_read)
-	{
-		push_status = char_queue_push_back(q_ptr, buffer[i]);
-		if (!push_status)
-		{
-			bytes_read = -1;
-			break ;
-		}
-		i++;
-	}
-	free(buffer);
-	return (bytes_read);
-}
+	if (remaining && *remaining)
+		append_until_newline(line, remaining);
 
-size_t	line_length(const t_char_queue *q)
-{
-	size_t	len;
+	while (*remaining == '\0')
+		load_buffer(line, remaining, fd);
 
-	len = 0;
-	while (q)
-	{
-		len++;
-		if (q->c == '\n')
-			break ;
-		q = q->next;
-	}
-	return (len);
+	return line;
 }
