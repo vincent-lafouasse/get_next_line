@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 18:50:32 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 19:00:17 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,7 @@ char	*get_next_line(int fd)
 
 #define ARBITRARY_POSITIVE_VALUE 1
 
-ssize_t append_until_newline(char** line_ref, char* remaining);
-ssize_t load_buffer(char* line, char* remaining, int fd);
-
-char	*get_next_line(int fd)
-{
-	static char* remaining;
-	char* line;
-	ssize_t bytes_read;
-
-	if (!remaining)
-		remaining = ft_strdup("");
-	if (*remaining)
-		append_until_newline(&line, remaining);
-	else
-		line = ft_strdup("");
-
-	bytes_read = ARBITRARY_POSITIVE_VALUE;
-	while (*remaining == '\0')
-		load_buffer(line, remaining, fd);
-
-	return line;
-}
-
-ssize_t append_until_newline(char** line_ref, char* remaining)
+ssize_t move_until_newline(char** line_ref, char* remaining)
 {
 	char *newline_pointer;
 
@@ -103,4 +80,31 @@ ssize_t append_until_newline(char** line_ref, char* remaining)
 ssize_t load_buffer(char* line, char* remaining, int fd)
 {
 	return 0;
+}
+
+char	*get_next_line(int fd)
+{
+	static char* remaining;
+	char* line;
+	ssize_t bytes_read;
+
+	if (!remaining)
+		remaining = ft_strdup("");
+	if (*remaining)
+		move_until_newline(&line, remaining);
+	else
+		line = ft_strdup("");
+
+	bytes_read = ARBITRARY_POSITIVE_VALUE;
+	while (bytes_read && !ft_strchr(line, '\n') && *remaining == '\0')
+		bytes_read = load_buffer(line, remaining, fd);
+
+	if (*line == '\0')
+	{
+		free(line);
+		free(remaining);
+		remaining = NULL;
+		line = NULL;
+	}	
+	return line;
 }
