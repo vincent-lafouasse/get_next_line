@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 19:29:31 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 19:34:07 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*get_next_line(int fd)
 #define ARBITRARY_POSITIVE_VALUE 1
 
 #define INITIAL_CAPACITY 128
+#define GROWING_FACTOR
 
 typedef struct
 {
@@ -67,13 +68,18 @@ typedef struct
 
 t_string init_string(void)
 {
-    return (t_string){.data = malloc(INITIAL_CAPACITY),
-                      .capacity = INITIAL_CAPACITY};
+    t_string out;
+    out.data = malloc(INITIAL_CAPACITY);
+    out.data[0] = '\0';
+    out.capacity = INITIAL_CAPACITY;
+    return out;
 }
 
 void realloc_string(t_string* str_ref)
 {
-    size_t new_capacity = 1.3f * (double)(str_ref->capacity);
+    size_t new_capacity = 1.3 * (double)(str_ref->capacity);
+    if (new_capacity < str_ref->capacity)
+        return;
     char* new_data = malloc(new_capacity);
     ft_memcpy(new_data, str_ref->data, str_ref->capacity);
     str_ref->data = new_data;
@@ -111,7 +117,7 @@ ssize_t load_buffer(char* line, char** remaining_ref, int fd)
 char* get_next_line(int fd)
 {
     static char* remaining = NULL;
-    char* line = NULL;
+    t_string line = init_string();
     ssize_t bytes_read;
 
     if (!remaining)
