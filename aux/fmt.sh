@@ -10,13 +10,7 @@ function norm {
 }
 
 SRC_DIR='./src'
-H_DIR='.'
 
-C_FILES=$(find $SRC_DIR -name '*.c' | grep -v unity) 
-H_FILES=$(find $H_DIR -name '*.h' | grep -v unity)
-
-TO_NORM="$C_FILES $H_FILES"
-
-for file in $TO_NORM; do
-	norm "$file"
-done
+norm "${SRC_DIR}/get_next_line.c"
+norm "${SRC_DIR}/get_next_line.h"
+norm "${SRC_DIR}/get_next_line_bonus.c"
