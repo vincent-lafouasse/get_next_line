@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 18:09:59 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 18:44:45 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,59 @@ char	*get_next_line(int fd)
 }
 */
 
-typedef struct
+char	*ft_strchr(const char *s, int c)
 {
-	char* self;
+	while (1)
+	{
+		if (*s == (unsigned char)c)
+		{
+			return ((char *)s);
+		}
+		if (*s == '\0')
+		{
+			return (NULL);
+		}
+		s++;
+	}
+}
 
-}	t_dynamic_string;
-
-ssize_t append_until_newline(char* line, char* remaining);
+ssize_t append_until_newline(char** line_ref, char* remaining);
 ssize_t load_buffer(char* line, char* remaining, int fd);
 
 char	*get_next_line(int fd)
 {
-	char* line;
 	static char* remaining;
+	char* line;
 
 	if (remaining && *remaining)
-		append_until_newline(line, remaining);
+		append_until_newline(&line, remaining);
 
 	while (*remaining == '\0')
 		load_buffer(line, remaining, fd);
 
 	return line;
+}
+
+ssize_t append_until_newline(char** line_ref, char* remaining)
+{
+	char *newline_pointer;
+
+	*line_ref = ft_strdup(remaining);
+	newline_pointer = ft_strchr(*line_ref, '\n');
+	if (newline_pointer == NULL)
+	{
+		*remaining = '\0';
+		return 0;
+	}
+	else
+	{
+		ft_memcpy(remaining, newline_pointer, ft_strlen(newline_pointer) + 1);
+		newline_pointer[1] = '\0';
+		return 0;
+	}
+}
+
+ssize_t load_buffer(char* line, char* remaining, int fd)
+{
+	return 0;
 }
