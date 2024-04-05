@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:53:56 by poss              #+#    #+#             */
-/*   Updated: 2024/04/05 18:16:55 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 18:46:55 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,20 @@ size_t	ft_strlen(const char *s)
 		len++;
 	}
 	return (len);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (1)
+	{
+		if (*s == (unsigned char)c)
+		{
+			return ((char *)s);
+		}
+		if (*s == '\0')
+		{
+			return (NULL);
+		}
+		s++;
+	}
 }

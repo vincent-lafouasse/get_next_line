@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 18:44:45 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 18:46:57 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,6 @@ char	*get_next_line(int fd)
 	return (move_line_from_queue(&queue[fd]));
 }
 */
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (1)
-	{
-		if (*s == (unsigned char)c)
-		{
-			return ((char *)s);
-		}
-		if (*s == '\0')
-		{
-			return (NULL);
-		}
-		s++;
-	}
-}
 
 ssize_t append_until_newline(char** line_ref, char* remaining);
 ssize_t load_buffer(char* line, char* remaining, int fd);
