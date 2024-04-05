@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 21:10:04 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 21:10:54 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ ssize_t move_until_newline(t_string* str_ref, char* src)
     char* newline_position = ft_strchr(src, '\n');
     size_t newline_index;
 
-    if (newline_position == 0)
+    if (newline_position == NULL)
     {
         append_string(str_ref, src);
         return 0;
