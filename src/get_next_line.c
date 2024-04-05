@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 21:10:54 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 21:17:39 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,12 @@ ssize_t load_buffer(t_string line, char* remaining, int fd)
 char* get_next_line(int fd)
 {
     static char* remaining = NULL;
-    t_string line = init_string();
+    t_string line;
     ssize_t bytes_read;
 
+    if (BUFFER_SIZE <= 0 || fd < 0 || fd >= MAX_FD)
+        return (NULL);
+    line = init_string();
     if (!remaining)
     {
         remaining = malloc(1 + BUFFER_SIZE);
@@ -104,6 +107,8 @@ char* get_next_line(int fd)
     while (bytes_read && !ft_strchr(line.data, '\n'))
         bytes_read = load_buffer(line, remaining, fd);
 
+    if (remaining[0] == '\0' && bytes_read == 0)
+        free(remaining);
     if (line.data[0] == '\0')
     {
         free(line.data);
