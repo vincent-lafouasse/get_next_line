@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 21:17:39 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 21:36:03 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,18 @@ char* get_next_line(int fd)
         move_until_newline(&line, remaining);
 
     bytes_read = ARBITRARY_POSITIVE_VALUE;
-    while (bytes_read && !ft_strchr(line.data, '\n'))
+    while (bytes_read > 0 && !ft_strchr(line.data, '\n'))
         bytes_read = load_buffer(line, remaining, fd);
 
     if (remaining[0] == '\0' && bytes_read == 0)
+    {
         free(remaining);
+        return NULL;
+    }
     if (line.data[0] == '\0')
     {
         free(line.data);
-        line.data = NULL;
+        return NULL;
     }
     return line.data;
 }
