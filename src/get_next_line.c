@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdbool.h>
 
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 512
@@ -128,7 +128,7 @@ void append_substring(t_string* str_ref, const char* s, size_t len)
 
     while (str_ref->capacity < n_bytes + input_len)
         realloc_string(str_ref);
-    ft_memcpy(str_ref->data + input_len , s, n_bytes);
+    ft_memcpy(str_ref->data + input_len, s, n_bytes);
     str_ref->data[input_len + n_bytes] = '\0';
 }
 
