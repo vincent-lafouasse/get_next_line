@@ -9,8 +9,12 @@ function norm {
 	mv temp "$1"
 }
 
+function format {
+	clang-format -i "$1"
+}
+
 SRC_DIR='./src'
 
-norm "${SRC_DIR}/get_next_line.c"
-norm "${SRC_DIR}/get_next_line.h"
-norm "${SRC_DIR}/get_next_line_bonus.c"
+format "${SRC_DIR}/get_next_line.c"
+format "${SRC_DIR}/get_next_line.h"
+format "${SRC_DIR}/get_next_line_bonus.c"
