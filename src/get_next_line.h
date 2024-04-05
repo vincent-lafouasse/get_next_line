@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:52:32 by poss              #+#    #+#             */
-/*   Updated: 2024/04/05 19:15:46 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 21:05:14 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 char* get_next_line(int fd);
 
+// libft functions
+char* ft_strcpy(char* dest, const char* src);
 char* ft_strchr(const char* s, int c);
 size_t ft_strlen(const char* s);
 char* ft_strjoin(char const* s1, char const* s2);

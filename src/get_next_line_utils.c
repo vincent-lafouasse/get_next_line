@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:53:56 by poss              #+#    #+#             */
-/*   Updated: 2024/04/05 19:25:43 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 21:04:35 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 #include "get_next_line.h"
 
 typedef unsigned char t_byte;
+
+char* ft_strcpy(char* dest, const char* src)
+{
+    const char* start = src;
+    while (*src)
+    {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+    *dest = '\0';
+    return (char*)start;
+}
 
 void* ft_memcpy(void* dest, const void* src, size_t n)
 {
