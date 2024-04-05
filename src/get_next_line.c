@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 19:25:41 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 19:29:06 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,22 @@ char	*get_next_line(int fd)
 #define INITIAL_CAPACITY 128
 
 typedef struct {
-  char *str;
+  char *data;
   size_t capacity;
 } t_string;
 
 t_string init_string(void) {
-  return (t_string){.str = malloc(INITIAL_CAPACITY),
+  return (t_string){.data = malloc(INITIAL_CAPACITY),
                     .capacity = INITIAL_CAPACITY};
+}
+
+void realloc_string(t_string* str_ref)
+{
+  size_t new_capacity = 1.3f * (double)(str_ref->capacity);
+  char* new_data = malloc(new_capacity);
+  ft_memcpy(new_data, str_ref->data, str_ref->capacity);
+  str_ref->data = new_data;
+  str_ref->capacity = new_capacity;
 }
 
 ssize_t move_until_newline(char **line_ref, char *remaining) {
