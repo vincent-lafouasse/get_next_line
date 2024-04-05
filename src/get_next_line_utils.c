@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:53:56 by poss              #+#    #+#             */
-/*   Updated: 2024/04/05 18:46:55 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 19:15:14 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,27 @@ char	*ft_strchr(const char *s, int c)
 		}
 		s++;
 	}
+}
+
+static size_t	min(size_t a, size_t b);
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*out;
+
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
+	len = min(len, ft_strlen(s + start));
+	out = malloc(1 + len);
+	if (!out)
+		return (NULL);
+	ft_strlcpy(out, s + start, 1 + len);
+	return (out);
+}
+
+static size_t	min(size_t a, size_t b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }

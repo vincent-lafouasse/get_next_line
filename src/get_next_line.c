@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 19:00:17 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 19:14:23 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,19 @@ ssize_t move_until_newline(char** line_ref, char* remaining)
 
 ssize_t load_buffer(char* line, char* remaining, int fd)
 {
-	return 0;
+	char buffer[BUFFER_SIZE];
+	ssize_t bytes_read = read(0, 0, 0);
+	return bytes_read;
 }
 
 char	*get_next_line(int fd)
 {
-	static char* remaining;
-	char* line;
+	static char remaining[BUFFER_SIZE + 1];
+	char* line = NULL;
 	ssize_t bytes_read;
 
-	if (!remaining)
-		remaining = ft_strdup("");
 	if (*remaining)
 		move_until_newline(&line, remaining);
-	else
-		line = ft_strdup("");
 
 	bytes_read = ARBITRARY_POSITIVE_VALUE;
 	while (bytes_read && !ft_strchr(line, '\n') && *remaining == '\0')
@@ -102,8 +100,6 @@ char	*get_next_line(int fd)
 	if (*line == '\0')
 	{
 		free(line);
-		free(remaining);
-		remaining = NULL;
 		line = NULL;
 	}	
 	return line;
