@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 20:13:44 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 20:20:32 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ char* ft_strcpy(char* dest, const char* src)
         dest++;
         src++;
     }
-    return start;
+    *dest = '\0';
+    return (char*)start;
 }
 
 typedef struct
@@ -99,6 +100,11 @@ void realloc_string(t_string* str_ref)
     ft_memcpy(new_data, str_ref->data, str_ref->capacity);
     str_ref->data = new_data;
     str_ref->capacity = new_capacity;
+}
+
+bool str_contains(t_string str, int c)
+{
+    return ft_strchr(str.data, c);
 }
 
 void append_substring(t_string* str_ref, const char* s, size_t len);
@@ -141,6 +147,7 @@ ssize_t move_until_newline(t_string* str_ref, char* src)
         newline_index = newline_position - src;
         append_substring(str_ref, src, newline_index);
         ft_strcpy(src, newline_position);
+        return 0;
     }
 }
 
@@ -168,7 +175,7 @@ char* get_next_line(int fd)
         move_until_newline(&line, remaining);
 
     bytes_read = ARBITRARY_POSITIVE_VALUE;
-    while (bytes_read && !ft_strchr(line, '\n') && *remaining == '\0')
+    while (bytes_read && !ft_strchr(line.data, '\n'))
         bytes_read = load_buffer(line, &remaining, fd);
 
     if (*line == '\0')
