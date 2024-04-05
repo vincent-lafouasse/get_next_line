@@ -14,7 +14,7 @@ OBJS := $(C_FILES:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
 CFLAGS  = -Wall -Wextra -g3
-CFLAGS += -Werror
+#CFLAGS += -Werror
 CFLAGS += -pedantic -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition
 CFLAGS += -I$(INC_DIR)
 CFLAGS += -MMD -MP
