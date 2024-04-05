@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 20:33:57 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 20:36:20 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ ssize_t move_until_newline(t_string* str_ref, char* src)
     else
     {
         newline_index = newline_position - src;
-        append_substring(str_ref, src, newline_index);
-        ft_strcpy(src, newline_position);
+        append_substring(str_ref, src, newline_index + 1);
+        ft_strcpy(src, newline_position + 1);
         return 0;
     }
 }
