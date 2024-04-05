@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 20:20:32 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 20:33:57 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void append_string(t_string* str_ref, const char* s)
     append_substring(str_ref, s, ft_strlen(s));
 }
 
-static bool min_size(size_t a, size_t b)
+static size_t min_size(size_t a, size_t b)
 {
     if (a < b)
         return a;
@@ -151,12 +151,12 @@ ssize_t move_until_newline(t_string* str_ref, char* src)
     }
 }
 
-ssize_t load_buffer(char* line, char** remaining_ref, int fd)
+ssize_t load_buffer(t_string line, char* remaining, int fd)
 {
     char buffer[BUFFER_SIZE];
     ssize_t bytes_read = read(fd, buffer, BUFFER_SIZE);
-    free(*remaining_ref);
-    *remaining_ref = ft_substr(buffer, 0, bytes_read);
+    ft_strlcpy(remaining, buffer, 1 + BUFFER_SIZE);
+    move_until_newline(&line, remaining);
     return bytes_read;
 }
 
@@ -176,12 +176,12 @@ char* get_next_line(int fd)
 
     bytes_read = ARBITRARY_POSITIVE_VALUE;
     while (bytes_read && !ft_strchr(line.data, '\n'))
-        bytes_read = load_buffer(line, &remaining, fd);
+        bytes_read = load_buffer(line, remaining, fd);
 
-    if (*line == '\0')
+    if (line.data[0] == '\0')
     {
-        free(line);
-        line = NULL;
+        free(line.data);
+        line.data = NULL;
     }
-    return line;
+    return line.data;
 }
