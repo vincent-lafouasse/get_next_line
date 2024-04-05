@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 20:36:20 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 21:10:04 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,80 +57,6 @@ char	*get_next_line(int fd)
 */
 
 #define ARBITRARY_POSITIVE_VALUE 1
-
-#define INITIAL_CAPACITY 128
-#define GROWING_FACTOR 1.3
-
-char* ft_strcpy(char* dest, const char* src)
-{
-    const char* start = src;
-    while (*src)
-    {
-        *dest = *src;
-        dest++;
-        src++;
-    }
-    *dest = '\0';
-    return (char*)start;
-}
-
-typedef struct
-{
-    char* data;
-    size_t len;
-    size_t capacity;
-} t_string;
-
-t_string init_string(void)
-{
-    t_string out;
-    out.data = malloc(INITIAL_CAPACITY);
-    out.data[0] = '\0';
-    out.len = 0;
-    out.capacity = INITIAL_CAPACITY;
-    return out;
-}
-
-void realloc_string(t_string* str_ref)
-{
-    size_t new_capacity = GROWING_FACTOR * (double)(str_ref->capacity);
-    if (new_capacity < str_ref->capacity)
-        return;
-    char* new_data = malloc(new_capacity);
-    ft_memcpy(new_data, str_ref->data, str_ref->capacity);
-    str_ref->data = new_data;
-    str_ref->capacity = new_capacity;
-}
-
-bool str_contains(t_string str, int c)
-{
-    return ft_strchr(str.data, c);
-}
-
-void append_substring(t_string* str_ref, const char* s, size_t len);
-
-void append_string(t_string* str_ref, const char* s)
-{
-    append_substring(str_ref, s, ft_strlen(s));
-}
-
-static size_t min_size(size_t a, size_t b)
-{
-    if (a < b)
-        return a;
-    else
-        return b;
-}
-void append_substring(t_string* str_ref, const char* s, size_t len)
-{
-    size_t n_bytes = min_size(len, ft_strlen(s));
-    size_t input_len = ft_strlen(str_ref->data);
-
-    while (str_ref->capacity < n_bytes + input_len)
-        realloc_string(str_ref);
-    ft_memcpy(str_ref->data + input_len, s, n_bytes);
-    str_ref->data[input_len + n_bytes] = '\0';
-}
 
 ssize_t move_until_newline(t_string* str_ref, char* src)
 {

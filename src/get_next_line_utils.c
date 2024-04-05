@@ -6,13 +6,62 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:53:56 by poss              #+#    #+#             */
-/*   Updated: 2024/04/05 21:04:35 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 21:10:30 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "get_next_line.h"
 
+static size_t min_size(size_t a, size_t b);
+
+// t_string operations
+
+#define INITIAL_CAPACITY 128
+#define GROWING_FACTOR 1.3
+
+t_string init_string(void)
+{
+    t_string out;
+    out.data = malloc(INITIAL_CAPACITY);
+    out.data[0] = '\0';
+    out.capacity = INITIAL_CAPACITY;
+    return out;
+}
+
+void realloc_string(t_string* str_ref)
+{
+    size_t new_capacity = GROWING_FACTOR * (double)(str_ref->capacity);
+    if (new_capacity < str_ref->capacity)
+        return;
+    char* new_data = malloc(new_capacity);
+    ft_memcpy(new_data, str_ref->data, str_ref->capacity);
+    str_ref->data = new_data;
+    str_ref->capacity = new_capacity;
+}
+
+bool str_contains(t_string str, int c)
+{
+    return ft_strchr(str.data, c);
+}
+
+void append_substring(t_string* str_ref, const char* s, size_t len)
+{
+    size_t n_bytes = min_size(len, ft_strlen(s));
+    size_t input_len = ft_strlen(str_ref->data);
+
+    while (str_ref->capacity < n_bytes + input_len)
+        realloc_string(str_ref);
+    ft_memcpy(str_ref->data + input_len, s, n_bytes);
+    str_ref->data[input_len + n_bytes] = '\0';
+}
+
+void append_string(t_string* str_ref, const char* s)
+{
+    append_substring(str_ref, s, ft_strlen(s));
+}
+
+// libft
 typedef unsigned char t_byte;
 
 char* ft_strcpy(char* dest, const char* src)
@@ -124,15 +173,13 @@ size_t ft_strlcpy(char* dst, const char* src, size_t buffer_size)
     return (ft_strlen(src));
 }
 
-static size_t min(size_t a, size_t b);
-
 char* ft_substr(char const* s, unsigned int start, size_t len)
 {
     char* out;
 
     if (start >= ft_strlen(s))
         return (ft_strdup(""));
-    len = min(len, ft_strlen(s + start));
+    len = min_size(len, ft_strlen(s + start));
     out = malloc(1 + len);
     if (!out)
         return (NULL);
@@ -140,9 +187,10 @@ char* ft_substr(char const* s, unsigned int start, size_t len)
     return (out);
 }
 
-static size_t min(size_t a, size_t b)
+static size_t min_size(size_t a, size_t b)
 {
     if (a < b)
-        return (a);
-    return (b);
+        return a;
+    else
+        return b;
 }

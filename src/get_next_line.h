@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:52:32 by poss              #+#    #+#             */
-/*   Updated: 2024/04/05 21:05:14 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/05 21:10:35 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,23 @@
 #define GET_NEXT_LINE_H
 
 #include <stddef.h>
+#include <stdbool.h>
 
 char* get_next_line(int fd);
+
+// t_string type
+typedef struct
+{
+    char* data;
+    size_t capacity;
+} t_string;
+
+t_string init_string(void);
+void realloc_string(t_string* str_ref);
+bool str_contains(t_string str, int c);
+
+void append_string(t_string* str_ref, const char* s);
+void append_substring(t_string* str_ref, const char* s, size_t len);
 
 // libft functions
 char* ft_strcpy(char* dest, const char* src);
