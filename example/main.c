@@ -6,7 +6,7 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/06 17:07:11 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/06 17:07:39 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char** argv)
 	while (line)
 	{
 		printf("%s", line);
-		line = get_next_line(fd);
 		free(line);
+		line = get_next_line(fd);
 	}
 }
