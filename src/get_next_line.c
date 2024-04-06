@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/05 21:36:03 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/06 17:09:16 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,33 +58,8 @@ char	*get_next_line(int fd)
 
 #define ARBITRARY_POSITIVE_VALUE 1
 
-ssize_t move_until_newline(t_string* str_ref, char* src)
-{
-    char* newline_position = ft_strchr(src, '\n');
-    size_t newline_index;
-
-    if (newline_position == NULL)
-    {
-        append_string(str_ref, src);
-        return 0;
-    }
-    else
-    {
-        newline_index = newline_position - src;
-        append_substring(str_ref, src, newline_index + 1);
-        ft_strcpy(src, newline_position + 1);
-        return 0;
-    }
-}
-
-ssize_t load_buffer(t_string line, char* remaining, int fd)
-{
-    char buffer[BUFFER_SIZE];
-    ssize_t bytes_read = read(fd, buffer, BUFFER_SIZE);
-    ft_strlcpy(remaining, buffer, 1 + BUFFER_SIZE);
-    move_until_newline(&line, remaining);
-    return bytes_read;
-}
+ssize_t move_until_newline(t_string* str_ref, char* src);
+ssize_t load_buffer(t_string line, char* remaining, int fd);
 
 char* get_next_line(int fd)
 {
@@ -118,4 +93,32 @@ char* get_next_line(int fd)
         return NULL;
     }
     return line.data;
+}
+
+ssize_t move_until_newline(t_string* str_ref, char* src)
+{
+    char* newline_position = ft_strchr(src, '\n');
+    size_t newline_index;
+
+    if (newline_position == NULL)
+    {
+        append_string(str_ref, src);
+        return 0;
+    }
+    else
+    {
+        newline_index = newline_position - src;
+        append_substring(str_ref, src, newline_index + 1);
+        ft_strcpy(src, newline_position + 1);
+        return 0;
+    }
+}
+
+ssize_t load_buffer(t_string line, char* remaining, int fd)
+{
+    char buffer[BUFFER_SIZE];
+    ssize_t bytes_read = read(fd, buffer, BUFFER_SIZE);
+    ft_strlcpy(remaining, buffer, 1 + BUFFER_SIZE);
+    move_until_newline(&line, remaining);
+    return bytes_read;
 }
