@@ -6,13 +6,14 @@
 /*   By: vlafouas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:11:45 by vlafouas          #+#    #+#             */
-/*   Updated: 2023/12/24 13:11:36 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/06 17:07:11 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int	main(int argc, char** argv)
 {
@@ -30,5 +31,6 @@ int	main(int argc, char** argv)
 	{
 		printf("%s", line);
 		line = get_next_line(fd);
+		free(line);
 	}
 }
