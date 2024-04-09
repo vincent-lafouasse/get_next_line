@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:52:32 by poss              #+#    #+#             */
-/*   Updated: 2024/04/09 16:11:34 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/09 17:22:32 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct
     size_t capacity;
 } t_string;
 
-t_string init_string(void);
-t_string init_string_with_capacity(size_t capacity);
-t_string init_string_from_cstr(const char* s);
-void realloc_string(t_string* str_ref);
-bool str_contains(t_string str, int c);
+t_string string_init(void);
+t_string string_init_with_capacity(size_t capacity);
+t_string string_init_from_cstr(const char* s);
+void string_realloc(t_string* str_ref);
+bool string_contains(t_string str, int c);
 
-void append_string(t_string* str_ref, const char* s);
-void append_substring(t_string* str_ref, const char* s, size_t len);
+void string_append(t_string* str_ref, const char* s);
+void string_append_substring(t_string* str_ref, const char* s, size_t len);
 
 // libft functions
 char* ft_strcpy(char* dest, const char* src);

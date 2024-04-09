@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/09 16:04:51 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/09 17:41:07 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char* get_next_line(int fd)
 
     if (BUFFER_SIZE <= 0 || fd < 0 || fd >= MAX_FD)
         return (NULL);
-    line = init_string();
+    line = string_init();
     if (!remaining)
     {
         remaining = malloc(1 + BUFFER_SIZE);
@@ -104,13 +104,13 @@ ssize_t move_until_newline(t_string* str_ref, char* src)
 
     if (newline_position == NULL)
     {
-        append_string(str_ref, src);
+        string_append(str_ref, src);
         return 0;
     }
     else
     {
         newline_index = newline_position - src;
-        append_substring(str_ref, src, newline_index + 1);
+        string_append_substring(str_ref, src, newline_index + 1);
         ft_strcpy(src, newline_position + 1);
         return 0;
     }

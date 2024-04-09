@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:53:56 by poss              #+#    #+#             */
-/*   Updated: 2024/04/09 16:13:42 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/09 17:47:11 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t min_size(size_t a, size_t b);
 #define INITIAL_CAPACITY 128
 #define GROWING_FACTOR 1.3
 
-t_string init_string(void)
+t_string string_init(void)
 {
     t_string out;
     out.data = malloc(INITIAL_CAPACITY);
@@ -29,7 +29,7 @@ t_string init_string(void)
     return out;
 }
 
-t_string init_string_with_capacity(size_t capacity)
+t_string string_init_with_capacity(size_t capacity)
 {
     t_string out;
 
@@ -39,7 +39,7 @@ t_string init_string_with_capacity(size_t capacity)
     return out;
 }
 
-t_string init_string_from_cstr(const char* s)
+t_string string_init_from_cstr(const char* s)
 {
     t_string out;
 
@@ -48,7 +48,7 @@ t_string init_string_from_cstr(const char* s)
     return out;
 }
 
-void realloc_string(t_string* str_ref)
+void string_realloc(t_string* str_ref)
 {
     size_t new_capacity = GROWING_FACTOR * (double)(str_ref->capacity);
     if (new_capacity < str_ref->capacity)
@@ -59,25 +59,25 @@ void realloc_string(t_string* str_ref)
     str_ref->capacity = new_capacity;
 }
 
-bool str_contains(t_string str, int c)
+bool string_contains(t_string str, int c)
 {
     return ft_strchr(str.data, c);
 }
 
-void append_substring(t_string* str_ref, const char* s, size_t len)
+void string_append_substring(t_string* str_ref, const char* s, size_t len)
 {
     size_t n_bytes = min_size(len, ft_strlen(s));
     size_t input_len = ft_strlen(str_ref->data);
 
     while (str_ref->capacity < n_bytes + input_len)
-        realloc_string(str_ref);
+        string_realloc(str_ref);
     ft_memcpy(str_ref->data + input_len, s, n_bytes);
     str_ref->data[input_len + n_bytes] = '\0';
 }
 
-void append_string(t_string* str_ref, const char* s)
+void string_append(t_string* str_ref, const char* s)
 {
-    append_substring(str_ref, s, ft_strlen(s));
+    string_append_substring(str_ref, s, ft_strlen(s));
 }
 
 // libft
