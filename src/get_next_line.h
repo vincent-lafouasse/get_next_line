@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:52:32 by poss              #+#    #+#             */
-/*   Updated: 2024/04/05 21:10:35 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/09 16:11:34 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct
 } t_string;
 
 t_string init_string(void);
+t_string init_string_with_capacity(size_t capacity);
+t_string init_string_from_cstr(const char* s);
 void realloc_string(t_string* str_ref);
 bool str_contains(t_string str, int c);
 

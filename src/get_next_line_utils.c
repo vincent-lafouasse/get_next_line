@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:53:56 by poss              #+#    #+#             */
-/*   Updated: 2024/04/05 21:10:30 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/09 16:13:42 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,25 @@ t_string init_string(void)
     out.data = malloc(INITIAL_CAPACITY);
     out.data[0] = '\0';
     out.capacity = INITIAL_CAPACITY;
+    return out;
+}
+
+t_string init_string_with_capacity(size_t capacity)
+{
+    t_string out;
+
+    out.capacity = capacity;
+    out.data = malloc(capacity);
+    out.data[0] = '\0';
+    return out;
+}
+
+t_string init_string_from_cstr(const char* s)
+{
+    t_string out;
+
+    out.capacity = 1 + ft_strlen(s);
+    out.data = ft_strdup(s);
     return out;
 }
 

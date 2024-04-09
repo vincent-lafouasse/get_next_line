@@ -6,7 +6,7 @@
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:41:06 by vlafouas          #+#    #+#             */
-/*   Updated: 2024/04/06 17:09:16 by poss             ###   ########.fr       */
+/*   Updated: 2024/04/09 16:04:51 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char* get_next_line(int fd)
         remaining = malloc(1 + BUFFER_SIZE);
         *remaining = '\0';
     }
+    // if remaining contains a newline, after this, line will contain a newline
+    // else, remaining will be an empty string
     if (*remaining)
         move_until_newline(&line, remaining);
 
