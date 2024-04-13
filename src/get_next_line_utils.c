@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: poss <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 12:00:32 by poss              #+#    #+#             */
-/*   Updated: 2024/01/18 01:57:36 by poss             ###   ########.fr       */
+/*   Created: 2024/01/16 00:12:52 by poss              #+#    #+#             */
+/*   Updated: 2024/01/18 01:59:34 by poss             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdlib.h>
 
 t_char_queue	*char_queue_new(char c)
